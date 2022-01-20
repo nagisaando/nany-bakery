@@ -1,7 +1,7 @@
 import '../styles/globals.css'
-
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import 'tailwindcss/tailwind.css'
+function MyApp({Component, pageProps}) {
+  return <Component className="font-body" {...pageProps} />
 }
 
 export default MyApp
