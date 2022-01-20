@@ -3,9 +3,10 @@ import React, {useState} from 'react'
 import {CSSTransition} from 'react-transition-group'
 
 const Navigation = ({blok}) => {
-  const [menuOpen, setMenu] = useState(true)
+  const [menuOpen, setMenu] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
   const nodeRef = React.useRef(null)
+
   const buttonHandler = () => {
     if (menuOpen) {
       disableScroll()
