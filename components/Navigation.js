@@ -8,13 +8,15 @@ const Navigation = ({blok}) => {
   const nodeRef = React.useRef(null)
 
   const buttonHandler = () => {
+    setMenu((current) => !current)
+  }
+  React.useEffect(() => {
     if (menuOpen) {
       disableScroll()
     } else {
       enableScroll()
     }
-    setMenu((current) => !current)
-  }
+  }, [menuOpen])
   const links = () => {
     return blok.body[0].link_list.map((el, i) => (
       <li key={i}>

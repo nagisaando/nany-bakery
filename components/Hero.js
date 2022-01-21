@@ -10,6 +10,7 @@ const Hero = ({blok}) => (
     <h1 {...sbEditable(blok)} className="text-4xl md:text-6xl text-white font-bold | mb-7">
       {blok.title}
     </h1>
+
     <div className="mt-8">
       <ButtonLinkNormal blok={blok.body[0]} />
     </div>

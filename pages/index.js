@@ -8,7 +8,12 @@ export default function Page({story, navigationData, footerData, preview}) {
   const enableBridge = true // load the storyblok bridge everywhere
   useEffect(() => {
     async function retrieveObjectData() {
-      const response = await Storyblok.get(`cdn/stories/home`)
+      let sbParams = {
+        version: 'draft', // or "published"
+        resolve_relations: ['FeaturedProducts.items', 'FeaturedRecipe.items'],
+        // language: locale,
+      }
+      const response = await Storyblok.get(`cdn/stories/home`, sbParams)
       console.log(response)
     }
     retrieveObjectData()
@@ -26,6 +31,12 @@ export default function Page({story, navigationData, footerData, preview}) {
         body {
           font-family: 'Poppins', sans-serif;
         }
+        a {
+          transition: all 100ms ease-in;
+        }
+        a:hover {
+          opacity: 0.6;
+        }
       `}</style>
     </Layout>
   )
@@ -34,7 +45,7 @@ export default function Page({story, navigationData, footerData, preview}) {
 export async function getStaticProps({params, preview = false}) {
   let sbParams = {
     version: 'draft', // or "published"
-    resolve_relations: ['featured-posts.posts', 'selected-posts.posts'],
+    resolve_relations: ['FeaturedItem.items'],
     // language: locale,
   }
 
