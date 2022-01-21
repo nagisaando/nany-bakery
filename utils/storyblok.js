@@ -19,7 +19,7 @@ export function useStoryblok(originalStory, preview) {
     if (typeof StoryblokBridge !== 'undefined') {
       // initialize the bridge with your token
       const storyblokInstance = new StoryblokBridge({
-        resolveRelations: ['featured-posts.posts', 'selected-posts.posts'],
+        resolveRelations: ['FeaturedProducts.items', 'FeaturedRecipes.items'],
       })
 
       // reload on Next.js page on save or publish event in the Visual Editor
@@ -36,7 +36,7 @@ export function useStoryblok(originalStory, preview) {
         // loading the draft version on initial enter of editor
         Storyblok.get(`cdn/stories/${event.storyId}`, {
           version: 'draft',
-          resolve_relations: ['featured-posts.posts', 'selected-posts.posts'],
+          resolve_relations: ['FeaturedProducts.items', 'FeaturedRecipes.items'],
         })
           .then(({data}) => {
             if (data.story) {

@@ -10,7 +10,7 @@ export default function Page({story, navigationData, footerData, preview}) {
     async function retrieveObjectData() {
       let sbParams = {
         version: 'draft', // or "published"
-        resolve_relations: ['FeaturedProducts.items', 'FeaturedRecipe.items'],
+        resolve_relations: ['FeaturedProducts.items', 'FeaturedRecipes.items'],
         // language: locale,
       }
       const response = await Storyblok.get(`cdn/stories/home`, sbParams)
@@ -45,8 +45,7 @@ export default function Page({story, navigationData, footerData, preview}) {
 export async function getStaticProps({params, preview = false}) {
   let sbParams = {
     version: 'draft', // or "published"
-    resolve_relations: ['FeaturedItem.items'],
-    // language: locale,
+    resolve_relations: ['FeaturedProducts.items', 'FeaturedRecipes.items'],
   }
 
   if (preview) {
