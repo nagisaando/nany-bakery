@@ -8,6 +8,7 @@ import BlogCard from './BlogCard'
 import BlogPost from './BlogPost'
 import Post from './Post'
 import Page from './Page'
+import Hero from './Hero'
 
 const Components = {
   Page,
@@ -16,6 +17,7 @@ const Components = {
   BlogCard,
   Post,
   PostList,
+  Hero,
 }
 
 const DynamicComponent = ({blok}) => {
