@@ -1,6 +1,6 @@
 import DynamicComponent from './DynamicComponent'
 import SbEditable from 'storyblok-react'
-import AboutSection from './AboutSection'
+
 const Page = ({blok}) => (
   <SbEditable content={blok}>
     <main>
@@ -10,7 +10,6 @@ const Page = ({blok}) => (
           })
         : null}
     </main>
-    <AboutSection />
   </SbEditable>
 )
 

@@ -11,7 +11,7 @@ import HomeSection from './HomeSection'
 import FeaturedProducts from './FeaturedProducts'
 import FeaturedRecipes from './FeaturedRecipes'
 import ImageSection from './ImageSection'
-
+import AboutSection from './AboutSection'
 const Components = {
   Page,
   Grid,
@@ -20,6 +20,7 @@ const Components = {
   FeaturedRecipes,
   FeaturedProducts,
   ImageSection,
+  AboutSection,
 }
 
 const DynamicComponent = ({blok}) => {
