@@ -11,10 +11,10 @@ const ProductCard = ({blok}) => (
           alt={blok.content.name}
         />
       </div>
-      <h3 className="font-medium text-lg lg:text-xl capitalize | mt-10 | pt-100%">
+      <h3 className="font-medium text-xl lg:text-2xl capitalize | mt-10 | pt-100%">
         {blok.content.name}
       </h3>
-      <p className="mt-3 font-normal">${blok.content.price}</p>
+      <p className="mt-1 font-normal">${blok.content.price}</p>
       {blok.content.short_description ? (
         <p className="font-light text-sm mt-1">{blok.content.short_description}</p>
       ) : (

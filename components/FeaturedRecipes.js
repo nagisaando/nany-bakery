@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import RecipeCard from './RecipeCard'
-const FeaturedProducts = ({blok}) => (
+const FeaturedRecipes = ({blok}) => (
   <SbEditable content={blok}>
     <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 | mt-24 mb-20">
       {blok.items.map((nestedBlok, i) => {
@@ -14,4 +14,4 @@ const FeaturedProducts = ({blok}) => (
   </SbEditable>
 )
 
-export default FeaturedProducts
+export default FeaturedRecipes
