@@ -3,7 +3,7 @@ import ButtonLinkNormal from './ButtonLinkNormal'
 const Hero = ({blok}) => (
   <div
     className="h-screen bg-cover | flex flex-col justify-center items-center"
-    style={{backgroundImage: `url('${blok.image}')`}}
+    style={{backgroundImage: `url('${blok.image}/m/')`}}
   >
     <h1 {...sbEditable(blok)} className="text-4xl md:text-6xl text-white font-bold | mb-7">
       {blok.title}

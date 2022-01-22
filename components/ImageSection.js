@@ -4,7 +4,7 @@ const ImageSection = ({blok}) => (
   <SbEditable content={blok}>
     <section
       className="h-screen w-full bg-cover | flex flex-col justify-center items-center"
-      style={{backgroundImage: `url('${blok.image}')`}}
+      style={{backgroundImage: `url('${blok.image}/m/')`}}
     ></section>
   </SbEditable>
 )
