@@ -1,16 +1,17 @@
-import DynamicComponent from './DynamicComponent'
-// import {sbEditable} from '@storyblok/storyblok-editable'
 import SbEditable from 'storyblok-react'
-const FeaturedRecipes = ({blok}) => (
+import RecipeCard from './RecipeCard'
+const FeaturedProducts = ({blok}) => (
   <SbEditable content={blok}>
-    <ul className="flex py-8 px-4 mb-6 container mx-auto">
-      {blok.items.map((nestedBlok, i) => (
-        <li key={nestedBlok.uuid} className="flex-auto px-6">
-          <div>hi</div>
-        </li>
-      ))}
+    <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-16 | mt-24 mb-20">
+      {blok.items.map((nestedBlok, i) => {
+        return (
+          <li key={nestedBlok.uuid} className="">
+            <RecipeCard blok={nestedBlok} />
+          </li>
+        )
+      })}
     </ul>
   </SbEditable>
 )
 
-export default FeaturedRecipes
+export default FeaturedProducts

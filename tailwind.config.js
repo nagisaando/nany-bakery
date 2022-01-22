@@ -8,7 +8,11 @@ module.exports = {
       pink: '#eed2d2',
       darkPink: '#d38081',
     },
-    extend: {},
+    extend: {
+      spacing: {
+        '100%': '100%',
+      },
+    },
   },
   variants: {
     extend: {},

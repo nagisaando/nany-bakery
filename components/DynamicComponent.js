@@ -12,18 +12,16 @@ import Hero from './Hero'
 import HomeSection from './HomeSection'
 import FeaturedProducts from './FeaturedProducts'
 import FeaturedRecipes from './FeaturedRecipes'
+import ImageSection from './ImageSection'
 
 const Components = {
   Page,
-  Teaser,
   Grid,
-  BlogCard,
-  Post,
-  PostList,
   Hero,
   HomeSection,
   FeaturedRecipes,
   FeaturedProducts,
+  ImageSection,
 }
 
 const DynamicComponent = ({blok}) => {

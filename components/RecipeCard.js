@@ -1,25 +1,18 @@
 import Link from 'next/link'
-const ProductCard = ({blok}) => (
+const RecipeCard = ({blok}) => (
   <Link href={`/${blok.full_slug}`}>
-    <a className="px-6 text-center">
+    <a className="px-6 text-left">
       <div className="square">
         <img
           className="content object-cover object-center"
-          src={`${
-            blok.content.card_image ? blok.content.card_image : blok.content.images[0].filename
-          }/m/`}
-          alt={blok.content.name}
+          src={`${blok.content.card_image ? blok.content.card_image : blok.content.image}/m/`}
+          alt={blok.content.title}
         />
       </div>
       <h3 className="font-medium text-lg lg:text-xl capitalize | mt-10 | pt-100%">
-        {blok.content.name}
+        {blok.content.title}
       </h3>
-      <p className="mt-3 font-normal">${blok.content.price}</p>
-      {blok.content.short_description ? (
-        <p className="font-light text-sm mt-1">{blok.content.short_description}</p>
-      ) : (
-        ''
-      )}
+      {blok.content.intro ? <p className="font-light text-sm mt-1">{blok.content.intro}</p> : ''}
       <style jsx>{`
         .square {
           float: left;
@@ -39,4 +32,4 @@ const ProductCard = ({blok}) => (
   </Link>
 )
 
-export default ProductCard
+export default RecipeCard

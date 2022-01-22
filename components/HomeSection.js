@@ -4,7 +4,7 @@ import ButtonLinkNormal from './ButtonLinkNormal'
 
 // import SbEditable from 'storyblok-react'
 const HomeSection = ({blok}) => (
-  <section className="container mx-auto | py-14 px-5 md:px-10 | text-center">
+  <section className="container mx-auto | py-24 px-5 md:px-10 | text-center">
     {blok.title ? (
       <h2 {...sbEditable(blok)} className="text-3xl md:text-4xl">
         {blok.title}
