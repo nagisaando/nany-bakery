@@ -1,9 +1,7 @@
-import Teaser from './Teaser'
 // import Feature from "./Feature";
-// import FeaturedPosts from "./FeaturedPosts";
 import Grid from './Grid'
 import Placeholder from './Placeholder'
-import PostList from './PostList'
+import Product from './Product'
 import Post from './Post'
 import Page from './Page'
 import Hero from './Hero'
@@ -21,6 +19,8 @@ const Components = {
   FeaturedProducts,
   ImageSection,
   AboutSection,
+  Post,
+  Product,
 }
 
 const DynamicComponent = ({blok}) => {

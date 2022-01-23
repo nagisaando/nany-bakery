@@ -3,9 +3,11 @@ import DynamicComponent from '../../components/DynamicComponent'
 import React, {useEffect} from 'react'
 import Storyblok, {useStoryblok} from '../../utils/storyblok'
 import ProductCard from '../../components/ProductCard'
-
+import {useRouter} from 'next/router'
 export default function Page({story, productList, navigationData, footerData, preview}) {
   const enableBridge = true // load the storyblok bridge everywhere
+  const router = useRouter()
+  const {slug} = router.query
   useEffect(() => {
     async function retrieveObjectData() {
       let sbParams = {
@@ -13,7 +15,7 @@ export default function Page({story, productList, navigationData, footerData, pr
         // language: locale,
       }
 
-      const response = await Storyblok.get(`cdn/stories/shop/corn-muffin`)
+      const response = await Storyblok.get(`cdn/stories/shop/${slug}`)
       console.log(response)
     }
     retrieveObjectData()
@@ -50,7 +52,7 @@ export async function getStaticProps({params, preview = false}) {
     sbParams.cv = Date.now()
   }
 
-  let {data} = await Storyblok.get(`cdn/stories/shop/${params.itemName}`)
+  let {data} = await Storyblok.get(`cdn/stories/shop/${params.slug}`)
   //   let {data} = await Storyblok.get(`cdn/stories/home`)
   let productList = await Storyblok.get(`cdn/stories`, {starts_with: 'shop/', is_startpage: 0})
   let navigationData = await Storyblok.get(`cdn/stories/navigation`, sbParams)
@@ -79,7 +81,7 @@ export async function getStaticPaths({locales}) {
       return
     }
 
-    paths.push({params: {itemName: data.links[linkKey].slug.replace('shop/', '')}})
+    paths.push({params: {slug: data.links[linkKey].slug.replace('shop/', '')}})
   })
 
   console.log(paths)
