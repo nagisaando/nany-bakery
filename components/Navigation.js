@@ -21,7 +21,7 @@ const Navigation = ({blok}) => {
     return blok.body[0].link_list.map((el, i) => (
       <li key={i}>
         <Link href={`/${el.link.cached_url}`}>
-          <a className="block md:inline | my-5 md:my-0 | text-4xl md:text-lg font-light">
+          <a className="block md:inline | my-5 md:my-0 | text-4xl md:text-lg font-light | capitalize">
             {el.display_name}
           </a>
         </Link>
