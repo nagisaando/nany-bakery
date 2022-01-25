@@ -37,12 +37,12 @@ const RecipeDetailCard = ({blok, title, intro, image}) => {
         <p className="uppercase | mr-5">ingredients</p>
         <hr className="bg-gray h-0.25 border-none border-gray | flex-grow" />
       </div>
-      <div className="prose">{render(blok.ingredients)}</div>
+      <div className="prose max-w-none">{render(blok.ingredients)}</div>
       <div className="flex items-center | my-10">
         <p className="uppercase | mr-5">instructions</p>
         <hr className="bg-gray h-0.25 border-none border-gray | flex-grow" />
       </div>
-      <div className="prose">{render(blok.instructions)}</div>
+      <div className="prose max-w-none">{render(blok.instructions)}</div>
     </div>
   )
 }

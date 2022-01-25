@@ -1,7 +1,7 @@
 import Link from 'next/link'
 const ProductCard = ({blok}) => (
   <Link href={`/${blok.full_slug}`}>
-    <a className="px-6 text-center">
+    <a className="text-center">
       <div className="square">
         <img
           className="content object-cover object-center"

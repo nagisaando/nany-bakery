@@ -3,8 +3,18 @@ import DynamicComponent from '../../components/DynamicComponent'
 import React, {useEffect} from 'react'
 import Storyblok, {useStoryblok} from '../../utils/storyblok'
 import ProductCard from '../../components/ProductCard'
+import ProfileForRecipePage from '../../components/ProfileForRecipePage'
+import BreadCrumb from '../../components/BreadCrumb'
+
 import {useRouter} from 'next/router'
-export default function Page({story, productList, navigationData, footerData, preview}) {
+export default function Page({
+  story,
+  recipeList,
+  profileData,
+  navigationData,
+  footerData,
+  preview,
+}) {
   const enableBridge = true // load the storyblok bridge everywhere
   const router = useRouter()
   const {slug} = router.query
@@ -26,7 +36,13 @@ export default function Page({story, productList, navigationData, footerData, pr
 
   return (
     <Layout navigationBlok={navigationData.content} footerBlok={footerData.content}>
-      <DynamicComponent blok={story.content} />
+      <div className="my-44 | px-5 md:px-10 | container mx-auto">
+        <BreadCrumb />
+        <div className="lg:flex gap-10">
+          <DynamicComponent blok={story.content} />
+          <ProfileForRecipePage blok={profileData.content} />
+        </div>
+      </div>
       <style jsx global>{`
         body {
           font-family: 'Poppins', sans-serif;
@@ -52,16 +68,20 @@ export async function getStaticProps({params, preview = false}) {
     sbParams.cv = Date.now()
   }
 
-  let {data} = await Storyblok.get(`cdn/stories/recipe/${params.slug}`)
+  let {data} = await Storyblok.get(`cdn/stories/recipe/${params.slug}`, {
+    resolve_relations: ['Post.related_recipe'],
+  })
   //   let {data} = await Storyblok.get(`cdn/stories/home`)
-  let productList = await Storyblok.get(`cdn/stories`, {starts_with: 'recipe/', is_startpage: 0})
+  let recipeList = await Storyblok.get(`cdn/stories`, {starts_with: 'recipe/', is_startpage: 0})
+  let profile = await Storyblok.get(`cdn/stories/profile-for-recipe-article`, sbParams)
   let navigationData = await Storyblok.get(`cdn/stories/navigation`, sbParams)
   let footerData = await Storyblok.get(`cdn/stories/footer`, sbParams)
 
   return {
     props: {
       story: data ? data.story : false,
-      productList: productList.data ? productList.data.stories : false,
+      recipeList: recipeList.data ? recipeList.data.stories : false,
+      profileData: profile.data ? profile.data.story : false,
       navigationData: navigationData.data ? navigationData.data.story : false,
       footerData: footerData.data ? footerData.data.story : false,
       preview,

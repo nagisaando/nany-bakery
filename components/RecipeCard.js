@@ -19,7 +19,7 @@ const RecipeCard = ({blok}) => {
   }
   return (
     <Link href={`/${blok.full_slug}`}>
-      <a className="px-6 text-left">
+      <a className="text-left">
         <div className="square">
           <img
             className="content object-cover object-center"

@@ -12,7 +12,6 @@ export default function Page({story, productList, navigationData, footerData, pr
     async function retrieveObjectData() {
       let sbParams = {
         version: 'draft', // or "published"
-        // language: locale,
       }
 
       const response = await Storyblok.get(`cdn/stories/shop/${slug}`)
@@ -83,8 +82,6 @@ export async function getStaticPaths({locales}) {
 
     paths.push({params: {slug: data.links[linkKey].slug.replace('shop/', '')}})
   })
-
-  console.log(paths)
 
   return {
     paths: paths,

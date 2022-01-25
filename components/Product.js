@@ -20,7 +20,7 @@ const Post = ({blok}) => {
           <h1 className="font-medium text-3xl md:text-4xl capitalize">{blok.name}</h1>
           <p className="my-6 | font-medium text-lg md:text-xl">${blok.price}</p>
 
-          <div className="mb-10 content prose">{render(blok.description)}</div>
+          <div className="mb-10 content prose max-w-none">{render(blok.description)}</div>
           <LongButtonLink />
         </div>
       </div>
