@@ -59,7 +59,6 @@ export default function Page({story, categories, recipeList, navigationData, foo
     </Layout>
   )
 }
-
 export async function getStaticProps({params, preview = false}) {
   let sbParams = {
     version: 'draft', // or "published"
@@ -69,7 +68,6 @@ export async function getStaticProps({params, preview = false}) {
     sbParams.version = 'draft'
     sbParams.cv = Date.now()
   }
-
   let {data} = await Storyblok.get(`cdn/stories/recipe`)
   let categories = await Storyblok.get(`cdn/stories`, {starts_with: 'recipe-categories/'})
   let recipeList = await Storyblok.get(`cdn/stories`, {starts_with: 'recipe/', is_startpage: 0})
@@ -85,6 +83,5 @@ export async function getStaticProps({params, preview = false}) {
       footerData: footerData.data ? footerData.data.story : false,
       preview,
     },
-    revalidate: 3600, // revalidate every hour
   }
 }

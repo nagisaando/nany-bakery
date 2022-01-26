@@ -15,7 +15,7 @@ const Post = ({blok}) => {
           <img className="object-cover object-center " src={`${blok.image}/m/`} alt={blok.title} />
         </div>
         <div className="mt-20 prose max-w-none">{render(blok.long_text)}</div>
-        {blok.recipe_description ? (
+        {blok.recipe_description.length > 0 ? (
           <RecipeDetailCard
             blok={blok.recipe_description[0]}
             title={blok.title}
@@ -26,7 +26,7 @@ const Post = ({blok}) => {
           ''
         )}
       </div>
-      {blok.related_recipe ? (
+      {blok.related_recipe.length > 0 ? (
         <div>
           <h2 className="text-4xl | mt-32 -mb-10">You may also like</h2>
           <FeaturedRecipes blok={blok.related_recipe} />
