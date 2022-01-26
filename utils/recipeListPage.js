@@ -24,7 +24,7 @@ export async function getrecipeListPageData(preview, uuid) {
     parentContent: parentContent.data ? parentContent : false,
     categories: categories.data ? categories.data : false,
     recipeList: recipeList.data ? recipeList.data.stories : false,
-    totalPage: recipeList.headers,
+    totalPage: recipeList.headers.total,
     navigationData: navigationData.data ? navigationData.data.story : false,
     footerData: footerData.data ? footerData.data.story : false,
   }

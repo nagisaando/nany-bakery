@@ -81,7 +81,7 @@ const Pagination = ({totalPage, page, listReset, displayNewPageItem}) => {
                 data-value={i + 1}
                 className={`mx-3 | px-2 pt-1 | cursor-pointer font-bold text-3xs |  ${
                   i !== 1 && activePage > 2 && activePage < totalPage - 1 && 'hidden'
-                } ${i === activePage && 'bg-pink'}`}
+                } ${i + 1 === activePage && 'bg-pink'}`}
                 onClick={changePage}
               >
                 {i + 1}
