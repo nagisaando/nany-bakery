@@ -10,7 +10,7 @@ const Categories = ({blok}) => {
         {blok.map((blok) => (
           <li key={blok.uuid} className="my-2 | capitalize font-light">
             <Link
-              href={`${router.pathname.includes('/shop') ? '/shop' : '/recipe'}?category=${
+              href={`${router.pathname.includes('/shop') ? '/shop' : '/recipe'}/category/${
                 blok.content.name
               }`}
             >

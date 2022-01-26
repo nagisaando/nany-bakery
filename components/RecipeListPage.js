@@ -5,14 +5,23 @@ import {getrecipeListPageData} from '../utils/recipeListPage'
 import RecipeCard from './RecipeCard'
 import Categories from './Categories'
 
-const RecipeListPage = ({story, categories, recipeList, navigationData, footerData}) => {
+const RecipeListPage = ({
+  story,
+  categories,
+  recipeList,
+  navigationData,
+  footerData,
+  categoryTitle,
+}) => {
   const enableBridge = true // load the storyblok bridge everywhere
   useEffect(() => {
     async function retrieveObjectData() {
       let sbParams = {
         version: 'draft', // or "published"
       }
-
+      let recipeListParam = {starts_with: 'recipe/', is_startpage: 0}
+      let recipeList = await Storyblok.get(`cdn/stories`, recipeListParam)
+      console.log(recipeList)
       const response = await Storyblok.get(`cdn/stories/recipe`)
       console.log(response)
     }
@@ -26,7 +35,9 @@ const RecipeListPage = ({story, categories, recipeList, navigationData, footerDa
   return (
     <Layout navigationBlok={navigationData.content} footerBlok={footerData.content}>
       <div className="px-5 md:px-10 py-40  | container | mx-auto">
-        <h1 className="text-5xl capitalize font-medium |  my-10">{story.content.title}</h1>
+        <h1 className="text-5xl capitalize font-medium |  my-10">
+          {categoryTitle ? categoryTitle : story.content.title}
+        </h1>
         <div className="  mb-14 | lg:flex gap-10">
           <div>
             {recipeList.length > 0 ? (
