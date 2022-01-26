@@ -69,7 +69,7 @@ export async function getStaticProps({params, preview = false}) {
   }
 }
 
-export async function getStaticPaths({locales}) {
+export async function getStaticPaths() {
   let {data} = await Storyblok.get('cdn/links/', {
     starts_with: 'shop/',
   })

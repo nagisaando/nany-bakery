@@ -22,7 +22,6 @@ export default function Page({
     async function retrieveObjectData() {
       let sbParams = {
         version: 'draft', // or "published"
-        // language: locale,
       }
 
       const response = await Storyblok.get(`cdn/stories/recipe/${slug}`)
@@ -90,7 +89,7 @@ export async function getStaticProps({params, preview = false}) {
   }
 }
 
-export async function getStaticPaths({locales}) {
+export async function getStaticPaths({}) {
   let {data} = await Storyblok.get('cdn/links/', {
     starts_with: 'recipe/',
   })

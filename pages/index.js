@@ -11,7 +11,6 @@ export default function Page({story, navigationData, footerData, preview}) {
       let sbParams = {
         version: 'draft', // or "published"
         resolve_relations: ['FeaturedProducts.items', 'FeaturedRecipes.items'],
-        // language: locale,
       }
       const response = await Storyblok.get(`cdn/stories/home`, sbParams)
       console.log(response)

@@ -9,7 +9,6 @@ export default function Page({story, productList, navigationData, footerData, pr
     async function retrieveObjectData() {
       let sbParams = {
         version: 'draft', // or "published"
-        // language: locale,
       }
 
       const response = await Storyblok.get(`cdn/stories`, {starts_with: 'shop/', is_startpage: 0})
