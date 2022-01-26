@@ -3,17 +3,26 @@ import Storyblok from '../../../utils/storyblok'
 import {getrecipeListPageData} from '../../../utils/recipeListPage'
 import RecipeListPage from '../../../components/RecipeListPage'
 import {useRouter} from 'next/router'
-export default function Page({story, categories, recipeList, navigationData, footerData, preview}) {
+export default function Page({
+  recipeListData,
+  categories,
+  recipeList,
+  navigationData,
+  footerData,
+  totalPage,
+  preview,
+}) {
   const router = useRouter()
   const {slug} = router.query
   return (
     <RecipeListPage
-      story={story}
+      recipeListData={recipeListData}
       categories={categories}
       recipeList={recipeList}
       navigationData={navigationData}
       footerData={footerData}
       categoryTitle={slug}
+      totalPage={totalPage}
     />
   )
 }
@@ -26,11 +35,12 @@ export async function getStaticProps({params, preview = false}) {
 
   return {
     props: {
-      story: recipeListData.story,
+      recipeListData: recipeListData.parentContent,
       categories: recipeListData.categories,
       recipeList: recipeListData.recipeList,
       navigationData: recipeListData.navigationData,
       footerData: recipeListData.footerData,
+      totalPage: recipeListData.totalPage,
       preview,
     },
   }
