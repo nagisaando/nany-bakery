@@ -13,7 +13,7 @@ export async function getrecipeListPageData(preview, uuid) {
   if (uuid) {
     recipeListParam['filter_query[categories][exists]'] = uuid
   }
-  let parentContent = await Storyblok.get(`cdn/stories/recipe`)
+  let {data} = await Storyblok.get(`cdn/stories/recipe`)
   let categories = await Storyblok.get(`cdn/stories`, {starts_with: 'recipe-categories/'})
   let recipeList = await Storyblok.get(`cdn/stories`, recipeListParam)
 
@@ -21,7 +21,7 @@ export async function getrecipeListPageData(preview, uuid) {
   let footerData = await Storyblok.get(`cdn/stories/footer`, sbParams)
 
   return {
-    parentContent: parentContent.data ? parentContent : false,
+    story: data ? data.story : false,
     categories: categories.data ? categories.data : false,
     recipeList: recipeList.data ? recipeList.data.stories : false,
     totalPage: recipeList.headers.total,

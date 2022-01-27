@@ -3,9 +3,9 @@ import {getrecipeListPageData} from '../../utils/recipeListPage'
 import RecipeListPage from '../../components/RecipeListPage'
 
 export default function Page({
-  recipeListData,
+  story,
   categories,
-  recipeList,
+  firstPageRecipeList,
   navigationData,
   footerData,
   totalPage,
@@ -13,9 +13,9 @@ export default function Page({
 }) {
   return (
     <RecipeListPage
-      recipeListData={recipeListData}
+      story={story}
       categories={categories}
-      recipeList={recipeList}
+      firstPageRecipeList={firstPageRecipeList}
       navigationData={navigationData}
       footerData={footerData}
       totalPage={totalPage}
@@ -34,9 +34,9 @@ export async function getStaticProps({params, preview = false}) {
   let recipeListData = await getrecipeListPageData(sbParams)
   return {
     props: {
-      recipeListData: recipeListData.parentContent,
+      story: recipeListData.story,
       categories: recipeListData.categories,
-      recipeList: recipeListData.recipeList,
+      firstPageRecipeList: recipeListData.recipeList,
       navigationData: recipeListData.navigationData,
       footerData: recipeListData.footerData,
       totalPage: recipeListData.totalPage,

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 
 function middlePage(activePage) {
   const arr = []
@@ -19,20 +19,31 @@ function lastPage(totalPage) {
   return arr
 }
 
-const Pagination = ({totalPage, page, listReset, displayNewPageItem}) => {
+const Pagination = ({totalPage, listReset, displayNewPageItem}) => {
   const [activePage, setActivePage] = useState(1)
+  const isFirstRender = useRef(true)
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      displayNewPageItem(activePage)
+    }
+  }, [activePage])
+  useEffect(() => {
+    isFirstRender.current = false // toggle flag after first render/mounting
+  }, [])
   function changePage(e) {
     let btnValue = e.currentTarget.getAttribute('data-value')
+    console.log('btn value ', btnValue)
     if (btnValue === 'next' && totalPage > activePage) {
-      setActivePage(activePage + 1)
+      setActivePage(+activePage + 1)
     } else if (btnValue === 'previous' && activePage > 0) {
-      setActivePage(activePage - 1)
+      setActivePage(+activePage - 1)
     } else {
-      setActivePage(btnValue)
+      setActivePage(+btnValue)
     }
     document.body.scrollTop = 0 // For Safari
     document.documentElement.scrollTop = 0
-    // displayNewPageItem()
+    // displayNewPageItem(activePage)
+    //
   }
   return (
     <div className="flex justify-center | md:w-7/12 | mx-auto mt-28">
@@ -52,16 +63,16 @@ const Pagination = ({totalPage, page, listReset, displayNewPageItem}) => {
         /* when there is no more than 5 pages  */
         totalPage < 6 && totalPage > 1 ? (
           <ul className="flex justify-between">
-            {totalPage.map((pageNum) => (
+            {Array.from({length: totalPage}, (_, i) => (
               <li
-                key={pageNum}
-                data-value={pageNum}
-                className={`mx-3 | px-2 pt-1 | cursor-pointer | font-bold text-3xs |  ${
-                  pageNum !== 1 && activePage > 3 && activePage < totalPage - 2 && 'hidden'
-                } ${pageNum === activePage && 'bg-pink'}}`}
-                onClick={changePage}
+                key={i}
+                className={`mx-3 | px-2 pt-1 | cursor-pointer | font-medium text-3xs |  ${
+                  i + 1 !== 1 && activePage > 3 && activePage < totalPage - 2 && 'hidden'
+                } ${i + 1 === activePage && 'text-darkPink'}`}
               >
-                {pageNum}
+                <button data-value={i + 1} onClick={changePage}>
+                  {i + 1}
+                </button>
               </li>
             ))}
           </ul>
@@ -78,13 +89,13 @@ const Pagination = ({totalPage, page, listReset, displayNewPageItem}) => {
             {Array.from({length: 2}, (_, i) => (
               <li
                 key={i + 'a'}
-                data-value={i + 1}
-                className={`mx-3 | px-2 pt-1 | cursor-pointer font-bold text-3xs |  ${
+                className={`mx-3 | px-2 pt-1 | cursor-pointer font-medium text-3xs |  ${
                   i !== 1 && activePage > 2 && activePage < totalPage - 1 && 'hidden'
-                } ${i + 1 === activePage && 'bg-pink'}`}
-                onClick={changePage}
+                } ${i + 1 === activePage && 'text-darkPink'}`}
               >
-                {i + 1}
+                <button data-value={i + 1} onClick={changePage}>
+                  {i + 1}
+                </button>
               </li>
             ))}
             {
@@ -109,13 +120,13 @@ const Pagination = ({totalPage, page, listReset, displayNewPageItem}) => {
                   {middlePage(activePage).map((pageNum, i) => (
                     <li
                       key={i + 'b'}
-                      data-value={pageNum}
-                      className={`  mx-3 | px-2 pt-1 | cursor-pointer | font-bold text-3xs ${
-                        pageNum === activePage && 'bg-pink'
+                      className={`  mx-3 | px-2 pt-1 | cursor-pointer | font-medium text-3xs ${
+                        pageNum === activePage && 'text-darkPink'
                       }`}
-                      onClick={changePage}
                     >
-                      {pageNum}
+                      <button data-value={pageNum} onClick={changePage}>
+                        {pageNum}
+                      </button>
                     </li>
                   ))}
 
@@ -131,13 +142,13 @@ const Pagination = ({totalPage, page, listReset, displayNewPageItem}) => {
               lastPage(totalPage).map((pageNum, i) => (
                 <li
                   key={i + 'c'}
-                  data-value={pageNum}
-                  className={`mx-3 | px-2 pt-1 |  | cursor-pointer | font-bold text-3xs ${
+                  className={`mx-3 | px-2 pt-1 |  | cursor-pointer | font-medium text-3xs ${
                     i !== 1 && activePage > 2 && activePage < totalPage - 1 && 'hidden'
-                  } ${pageNum === activePage && 'bg-pink'}`}
-                  onClick={changePage}
+                  } ${pageNum === activePage && 'text-darkPink'}`}
                 >
-                  {pageNum}
+                  <button data-value={pageNum} onClick={changePage}>
+                    {pageNum}
+                  </button>
                 </li>
               ))
             }
@@ -158,6 +169,16 @@ const Pagination = ({totalPage, page, listReset, displayNewPageItem}) => {
       ) : (
         ''
       )}
+      <style jsx>
+        {`
+          button {
+            transition: all 100ms ease-in;
+          }
+          button:hover {
+            opacity: 0.6;
+          }
+        `}
+      </style>
     </div>
   )
 }

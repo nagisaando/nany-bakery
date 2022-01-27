@@ -1,45 +1,60 @@
 import Layout from './Layout'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import Storyblok, {useStoryblok} from '../utils/storyblok'
 import {getrecipeListPageData} from '../utils/recipeListPage'
 import RecipeCard from './RecipeCard'
 import Pagination from './Pagination'
+import {useRouter} from 'next/router'
 
 import Categories from './Categories'
 
 const RecipeListPage = ({
-  recipeListData,
+  story,
   categories,
-  recipeList,
+  firstPageRecipeList,
   navigationData,
   footerData,
   categoryTitle,
   totalPage,
+  uuid,
 }) => {
   const enableBridge = true // load the storyblok bridge everywhere
+  const [recipeList, setRecipeList] = useState(firstPageRecipeList)
   useEffect(() => {
-    async function retrieveObjectData() {
-      let sbParams = {
-        version: 'draft', // or "published"
-      }
-      let recipeListParam = {starts_with: 'recipe/', is_startpage: 0}
-      let recipeList = await Storyblok.get(`cdn/stories`, recipeListParam)
-      console.log(recipeList)
-      const response = await Storyblok.get(`cdn/stories/recipe`)
-      console.log(response)
-    }
-    retrieveObjectData()
+    console.log('rerendering')
+    // async function retrieveObjectData() {
+    //   let sbParams = {
+    //     version: 'draft', // or "published"
+    //   }
+    //   let recipeListParam = {starts_with: 'recipe/', is_startpage: 0}
+    //   // let recipeList = await Storyblok.get(`cdn/stories`, recipeListParam)
+    //   // console.log(recipeList)
+    //   const response = await Storyblok.get(`cdn/stories/recipe`)
+    //   console.log(response)
+    // }
+    // retrieveObjectData()
   }, [])
-  recipeListData = useStoryblok(recipeListData.data.story, enableBridge)
+
+  story = useStoryblok(story, enableBridge)
   categories = useStoryblok(categories, enableBridge)
   navigationData = useStoryblok(navigationData, enableBridge)
   footerData = useStoryblok(footerData, enableBridge)
+  async function displayNewPageItem(activePage) {
+    console.log('display name function is working')
+    let param = {starts_with: 'recipe/', is_startpage: 0, per_page: 1, page: activePage}
+    if (uuid) {
+      param['filter_query[categories][exists]'] = uuid
+    }
 
+    let {data} = await Storyblok.get(`cdn/stories`, param)
+    console.log(data.stories)
+    setRecipeList(data ? data.stories : [])
+  }
   return (
     <Layout navigationBlok={navigationData.content} footerBlok={footerData.content}>
       <div className="px-5 md:px-10 py-40  | container | mx-auto">
         <h1 className="text-5xl capitalize font-medium |  my-10">
-          {categoryTitle ? categoryTitle : recipeListData.content.title}
+          {categoryTitle ? categoryTitle : story.content.title}
         </h1>
         <div className="  mb-14 | lg:flex gap-10">
           <div>
@@ -58,7 +73,11 @@ const RecipeListPage = ({
                 ''
               )}
             </div>
-            <Pagination totalPage={totalPage} page={1} listReset={false} />
+            <Pagination
+              totalPage={totalPage}
+              listReset={false}
+              displayNewPageItem={displayNewPageItem}
+            />
           </div>
           {categories ? <Categories blok={categories.stories} /> : ''}
         </div>

@@ -6,11 +6,28 @@ import RecipeDetailCard from './RecipeDetailCard'
 import FeaturedRecipes from './FeaturedRecipes'
 
 const Post = ({blok}) => {
+  const date = () => {
+    if (blok.date) {
+      let arr = blok.date.split('')
+      const index = arr.indexOf(' ')
+      // remove time display
+      arr.splice(index)
+      const year = arr.splice(0, 4)
+      // remove / in the beggining
+      arr.shift()
+      arr.push('-')
+      const reorderedArr = arr.concat(year)
+      const date = reorderedArr.join('').replace(/-/g, '/')
+      return date
+    } else {
+      return ''
+    }
+  }
   return (
     <div {...sbEditable(blok)} className="">
       <div>
         <h1 className="text-5xl font-medium capitalize">{blok.title}</h1>
-        <p className="text-sm font-light my-5">{blok.date}</p>
+        <p className="text-sm font-light my-5">{date()}</p>
         <div className="">
           <img className="object-cover object-center " src={`${blok.image}/m/`} alt={blok.title} />
         </div>
