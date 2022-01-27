@@ -2,9 +2,8 @@ import Layout from '../../components/Layout'
 import DynamicComponent from '../../components/DynamicComponent'
 import React, {useEffect} from 'react'
 import Storyblok, {useStoryblok} from '../../utils/storyblok'
-import ProductCard from '../../components/ProductCard'
 import {useRouter} from 'next/router'
-export default function Page({story, productList, navigationData, footerData, preview}) {
+export default function Page({story, navigationData, footerData, preview}) {
   const enableBridge = true // load the storyblok bridge everywhere
   const router = useRouter()
   const {slug} = router.query
@@ -52,20 +51,16 @@ export async function getStaticProps({params, preview = false}) {
   }
 
   let {data} = await Storyblok.get(`cdn/stories/shop/${params.slug}`)
-  //   let {data} = await Storyblok.get(`cdn/stories/home`)
-  let productList = await Storyblok.get(`cdn/stories`, {starts_with: 'shop/', is_startpage: 0})
   let navigationData = await Storyblok.get(`cdn/stories/navigation`, sbParams)
   let footerData = await Storyblok.get(`cdn/stories/footer`, sbParams)
 
   return {
     props: {
       story: data ? data.story : false,
-      productList: productList.data ? productList.data.stories : false,
       navigationData: navigationData.data ? navigationData.data.story : false,
       footerData: footerData.data ? footerData.data.story : false,
       preview,
     },
-    revalidate: 3600, // revalidate every hour
   }
 }
 

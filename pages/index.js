@@ -6,17 +6,6 @@ import Storyblok, {useStoryblok} from '../utils/storyblok'
 
 export default function Page({story, navigationData, footerData, preview}) {
   const enableBridge = true // load the storyblok bridge everywhere
-  useEffect(() => {
-    async function retrieveObjectData() {
-      let sbParams = {
-        version: 'draft', // or "published"
-        resolve_relations: ['FeaturedProducts.items', 'FeaturedRecipes.items'],
-      }
-      const response = await Storyblok.get(`cdn/stories/home`, sbParams)
-      console.log(response)
-    }
-    retrieveObjectData()
-  }, [])
   // use the preview variable to enable the bridge only in preview mode
   // const enableBridge = preview;
   story = useStoryblok(story, enableBridge)
@@ -41,7 +30,7 @@ export default function Page({story, navigationData, footerData, preview}) {
   )
 }
 
-export async function getStaticProps({params, preview = false}) {
+export async function getStaticProps({preview = false}) {
   let sbParams = {
     version: 'draft', // or "published"
     resolve_relations: ['FeaturedProducts.items', 'FeaturedRecipes.items'],

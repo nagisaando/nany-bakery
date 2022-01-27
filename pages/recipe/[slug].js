@@ -2,33 +2,13 @@ import Layout from '../../components/Layout'
 import DynamicComponent from '../../components/DynamicComponent'
 import React, {useEffect} from 'react'
 import Storyblok, {useStoryblok} from '../../utils/storyblok'
-import ProductCard from '../../components/ProductCard'
 import ProfileForRecipePage from '../../components/ProfileForRecipePage'
 import BreadCrumb from '../../components/BreadCrumb'
 
 import {useRouter} from 'next/router'
-export default function Page({
-  story,
-  recipeList,
-  profileData,
-  navigationData,
-  footerData,
-  preview,
-}) {
+export default function Page({story, profileData, navigationData, footerData, preview}) {
   const enableBridge = true // load the storyblok bridge everywhere
   const router = useRouter()
-  const {slug} = router.query
-  useEffect(() => {
-    async function retrieveObjectData() {
-      let sbParams = {
-        version: 'draft', // or "published"
-      }
-
-      const response = await Storyblok.get(`cdn/stories/recipe/${slug}`)
-      console.log(response)
-    }
-    retrieveObjectData()
-  }, [])
   story = useStoryblok(story, enableBridge)
   navigationData = useStoryblok(navigationData, enableBridge)
   footerData = useStoryblok(footerData, enableBridge)

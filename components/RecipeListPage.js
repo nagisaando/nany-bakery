@@ -1,10 +1,8 @@
 import Layout from './Layout'
 import React, {useEffect, useState} from 'react'
 import Storyblok, {useStoryblok} from '../utils/storyblok'
-import {getrecipeListPageData} from '../utils/recipeListPage'
 import RecipeCard from './RecipeCard'
 import Pagination from './Pagination'
-import {useRouter} from 'next/router'
 
 import Categories from './Categories'
 
@@ -20,21 +18,6 @@ const RecipeListPage = ({
 }) => {
   const enableBridge = true // load the storyblok bridge everywhere
   const [recipeList, setRecipeList] = useState(firstPageRecipeList)
-  useEffect(() => {
-    console.log('rerendering')
-    // async function retrieveObjectData() {
-    //   let sbParams = {
-    //     version: 'draft', // or "published"
-    //   }
-    //   let recipeListParam = {starts_with: 'recipe/', is_startpage: 0}
-    //   // let recipeList = await Storyblok.get(`cdn/stories`, recipeListParam)
-    //   // console.log(recipeList)
-    //   const response = await Storyblok.get(`cdn/stories/recipe`)
-    //   console.log(response)
-    // }
-    // retrieveObjectData()
-  }, [])
-
   story = useStoryblok(story, enableBridge)
   categories = useStoryblok(categories, enableBridge)
   navigationData = useStoryblok(navigationData, enableBridge)
@@ -56,8 +39,8 @@ const RecipeListPage = ({
         <h1 className="text-5xl capitalize font-medium |  my-10">
           {categoryTitle ? categoryTitle : story.content.title}
         </h1>
-        <div className="  mb-14 | lg:flex gap-10">
-          <div>
+        <div className="mb-14 | lg:flex gap-10">
+          <div className="flex-grow">
             <div>
               {recipeList.length > 0 ? (
                 <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-16 ">

@@ -53,7 +53,7 @@ const Pagination = ({totalPage, listReset, displayNewPageItem}) => {
           className="cursor-pointer | flex items-center |  px-2.5  | mr-3 | transition-all ease-in duration-100 |"
           onClick={changePage}
         >
-          previous
+          Previous
         </button>
       ) : (
         ''
@@ -164,7 +164,7 @@ const Pagination = ({totalPage, listReset, displayNewPageItem}) => {
           className="cursor-pointer | flex items-center justify-end | py-1.7 px-2.5 | ml-3 | transition-all ease-in duration-100 |"
           onClick={changePage}
         >
-          next
+          Next
         </button>
       ) : (
         ''
