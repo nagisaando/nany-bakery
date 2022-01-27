@@ -3,6 +3,12 @@ import Link from 'next/link'
 import {useRouter} from 'next/router'
 const Categories = ({blok}) => {
   const router = useRouter()
+  function reloadPage(e) {
+    let linkName = e.currentTarget.getAttribute('data-value')
+    if (window.location.pathname === linkName) {
+      router.reload(window.location.pathname)
+    }
+  }
   return (
     <div className="">
       <h2 className="text-3xl font-medium capitalize | mt-20 lg:mt-0">categories</h2>
@@ -14,7 +20,15 @@ const Categories = ({blok}) => {
                 blok.content.name
               }`}
             >
-              {blok.content.name}
+              <a
+                data-value={`${router.pathname.includes('/shop') ? '/shop' : '/recipe'}/category/${
+                  blok.content.name
+                }`}
+                onClick={reloadPage}
+              >
+                {' '}
+                {blok.content.name}
+              </a>
             </Link>
           </li>
         ))}

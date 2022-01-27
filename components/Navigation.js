@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import React, {useState} from 'react'
 import {CSSTransition} from 'react-transition-group'
-
+import {useRouter} from 'next/router'
 const Navigation = ({blok}) => {
   const [menuOpen, setMenu] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
   const nodeRef = React.useRef(null)
-
+  const router = useRouter()
   const buttonHandler = () => {
     setMenu((current) => !current)
   }
@@ -18,10 +18,22 @@ const Navigation = ({blok}) => {
     }
   }, [menuOpen])
   const links = () => {
+    function reloadPage(e) {
+      let linkName = e.currentTarget.getAttribute('data-value')
+      if (window.location.pathname + '/' === linkName) {
+        router.reload(window.location.pathname)
+      }
+
+      // if(linkName )
+    }
     return blok.body[0].link_list.map((el, i) => (
       <li key={i}>
-        <Link href={`/${el.link.cached_url}`}>
-          <a className="block md:inline | my-5 md:my-0 | text-4xl md:text-lg font-light | capitalize">
+        <Link href={`/${el.link.cached_url}`} as={`/${el.link.cached_url}`}>
+          <a
+            className="block md:inline | my-5 md:my-0 | text-4xl md:text-lg font-light | capitalize"
+            data-value={`/${el.link.cached_url}`}
+            onClick={reloadPage}
+          >
             {el.display_name}
           </a>
         </Link>

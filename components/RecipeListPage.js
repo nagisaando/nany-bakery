@@ -23,7 +23,6 @@ const RecipeListPage = ({
   navigationData = useStoryblok(navigationData, enableBridge)
   footerData = useStoryblok(footerData, enableBridge)
   async function displayNewPageItem(activePage) {
-    console.log('display name function is working')
     let param = {starts_with: 'recipe/', is_startpage: 0, per_page: 1, page: activePage}
     if (uuid) {
       param['filter_query[categories][exists]'] = uuid
