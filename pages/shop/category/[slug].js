@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react'
+import {getShopListPageData} from '../../../utils/shopListPage'
+import ShopListPage from '../../../components/ShopListPage'
 import Storyblok from '../../../utils/storyblok'
-import {getrecipeListPageData} from '../../../utils/recipeListPage'
-import RecipeListPage from '../../../components/RecipeListPage'
 import {useRouter} from 'next/router'
 export default function Page({
   story,
   categories,
-  firstPageRecipeList,
+  firstPageShopList,
   navigationData,
   footerData,
   totalPage,
@@ -16,10 +16,10 @@ export default function Page({
   const router = useRouter()
   const {slug} = router.query
   return (
-    <RecipeListPage
+    <ShopListPage
       story={story}
       categories={categories}
-      firstPageRecipeList={firstPageRecipeList}
+      firstPageShopList={firstPageShopList}
       navigationData={navigationData}
       footerData={footerData}
       categoryTitle={slug}
@@ -28,19 +28,19 @@ export default function Page({
     />
   )
 }
-export async function getStaticProps({params, preview = false}) {
-  let {data} = await Storyblok.get(`cdn/stories/recipe-categories/${params.slug}`)
-  let categoryUuid = data.story ? data.story.uuid : false
-  let recipeListData = await getrecipeListPageData(preview, categoryUuid)
 
+export async function getStaticProps({params, preview = false}) {
+  let {data} = await Storyblok.get(`cdn/stories/shop-categories/${params.slug}`)
+  let categoryUuid = data.story ? data.story.uuid : false
+  let shopListPageData = await getShopListPageData(preview, categoryUuid)
   return {
     props: {
-      story: recipeListData.story,
-      categories: recipeListData.categories,
-      firstPageRecipeList: recipeListData.recipeList,
-      navigationData: recipeListData.navigationData,
-      footerData: recipeListData.footerData,
-      totalPage: recipeListData.totalPage,
+      story: shopListPageData.story,
+      categories: shopListPageData.categories,
+      firstPageShopList: shopListPageData.shopList,
+      navigationData: shopListPageData.navigationData,
+      footerData: shopListPageData.footerData,
+      totalPage: shopListPageData.totalPage,
       categoryUuid,
       preview,
     },
@@ -49,7 +49,7 @@ export async function getStaticProps({params, preview = false}) {
 
 export async function getStaticPaths({}) {
   let {data} = await Storyblok.get('cdn/links/', {
-    starts_with: 'recipe-categories/',
+    starts_with: 'shop-categories/',
   })
 
   let paths = []
