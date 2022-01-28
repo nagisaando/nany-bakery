@@ -1,9 +1,9 @@
 import Layout from '../../components/Layout'
-import DynamicComponent from '../../components/DynamicComponent'
+import Product from '../../components/Product'
 import React, {useEffect} from 'react'
 import Storyblok, {useStoryblok} from '../../utils/storyblok'
 import {useRouter} from 'next/router'
-export default function Page({story, navigationData, footerData, preview}) {
+export default function Page({story, navigationData, footerData, relatedProduct, preview}) {
   const enableBridge = true // load the storyblok bridge everywhere
   const router = useRouter()
   const {slug} = router.query
@@ -24,7 +24,7 @@ export default function Page({story, navigationData, footerData, preview}) {
 
   return (
     <Layout navigationBlok={navigationData.content} footerBlok={footerData.content}>
-      <DynamicComponent blok={story.content} />
+      <Product blok={story.content} relatedProduct={relatedProduct} />
       <style jsx global>{`
         body {
           font-family: 'Poppins', sans-serif;
@@ -50,9 +50,28 @@ export async function getStaticProps({params, preview = false}) {
     sbParams.cv = Date.now()
   }
 
-  let {data} = await Storyblok.get(`cdn/stories/shop/${params.slug}`)
+  let {data} = await Storyblok.get(`cdn/stories/shop/${params.slug}`, {
+    resolve_relations: ['Product.categories'],
+  })
   let navigationData = await Storyblok.get(`cdn/stories/navigation`, sbParams)
   let footerData = await Storyblok.get(`cdn/stories/footer`, sbParams)
+  let relatedProduct = []
+  if (data && data.story.content.categories && data.story.content.categories.length > 0) {
+    relatedProduct = await Storyblok.get(`cdn/stories/`, {
+      starts_with: 'shop/',
+      is_startpage: 0,
+      per_page: 4,
+      page: 1,
+      ['filter_query[categories][exists]']: data.story.content.categories[0].uuid,
+    })
+  }
+  if (relatedProduct.data) {
+    relatedProduct = relatedProduct.data.stories
+      .filter((el) => {
+        return el.uuid !== data.story.uuid
+      })
+      .slice(0, 3)
+  }
 
   return {
     props: {
@@ -60,6 +79,7 @@ export async function getStaticProps({params, preview = false}) {
       navigationData: navigationData.data ? navigationData.data.story : false,
       footerData: footerData.data ? footerData.data.story : false,
       preview,
+      relatedProduct: relatedProduct.length > 0 ? relatedProduct : [],
     },
   }
 }

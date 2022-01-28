@@ -1,12 +1,19 @@
 import Layout from '../../components/Layout'
-import DynamicComponent from '../../components/DynamicComponent'
+import Post from '../../components/Post'
 import React, {useEffect} from 'react'
 import Storyblok, {useStoryblok} from '../../utils/storyblok'
 import ProfileForRecipePage from '../../components/ProfileForRecipePage'
 import BreadCrumb from '../../components/BreadCrumb'
 
 import {useRouter} from 'next/router'
-export default function Page({story, profileData, navigationData, footerData, preview}) {
+export default function Page({
+  story,
+  profileData,
+  navigationData,
+  footerData,
+  relatedRecipe,
+  preview,
+}) {
   const enableBridge = true // load the storyblok bridge everywhere
   const router = useRouter()
   story = useStoryblok(story, enableBridge)
@@ -18,7 +25,7 @@ export default function Page({story, profileData, navigationData, footerData, pr
       <div className="my-44 | px-5 md:px-10 | container mx-auto">
         <BreadCrumb />
         <div className="lg:flex gap-10">
-          <DynamicComponent blok={story.content} />
+          <Post blok={story.content} relatedRecipe={relatedRecipe} />
           <ProfileForRecipePage blok={profileData.content} />
         </div>
       </div>
@@ -48,21 +55,35 @@ export async function getStaticProps({params, preview = false}) {
   }
 
   let {data} = await Storyblok.get(`cdn/stories/recipe/${params.slug}`, {
-    resolve_relations: ['Post.related_recipe'],
+    resolve_relations: ['Post.categories'],
   })
-  //   let {data} = await Storyblok.get(`cdn/stories/home`)
-  let recipeList = await Storyblok.get(`cdn/stories`, {starts_with: 'recipe/', is_startpage: 0})
   let profile = await Storyblok.get(`cdn/stories/profile-for-recipe-article`, sbParams)
   let navigationData = await Storyblok.get(`cdn/stories/navigation`, sbParams)
   let footerData = await Storyblok.get(`cdn/stories/footer`, sbParams)
-
+  let relatedRecipe = []
+  if (data && data.story.content.categories && data.story.content.categories.length > 0) {
+    relatedRecipe = await Storyblok.get(`cdn/stories/`, {
+      starts_with: 'recipe/',
+      is_startpage: 0,
+      per_page: 4,
+      page: 1,
+      ['filter_query[categories][exists]']: data.story.content.categories[0].uuid,
+    })
+  }
+  if (relatedRecipe.data) {
+    relatedRecipe = relatedRecipe.data.stories
+      .filter((el) => {
+        return el.uuid !== data.story.uuid
+      })
+      .slice(0, 3)
+  }
   return {
     props: {
       story: data ? data.story : false,
-      recipeList: recipeList.data ? recipeList.data.stories : false,
       profileData: profile.data ? profile.data.story : false,
       navigationData: navigationData.data ? navigationData.data.story : false,
       footerData: footerData.data ? footerData.data.story : false,
+      relatedRecipe: relatedRecipe.length > 0 ? relatedRecipe : [],
       preview,
     },
     revalidate: 3600, // revalidate every hour

@@ -1,5 +1,6 @@
 import Layout from './Layout'
 import React, {useEffect, useState} from 'react'
+import {useRouter} from 'next/router'
 import Storyblok, {useStoryblok} from '../utils/storyblok'
 import RecipeCard from './RecipeCard'
 import Pagination from './Pagination'
@@ -18,10 +19,14 @@ const RecipeListPage = ({
 }) => {
   const enableBridge = true // load the storyblok bridge everywhere
   const [recipeList, setRecipeList] = useState(firstPageRecipeList)
+  const dynamicRoute = useRouter().asPath
   story = useStoryblok(story, enableBridge)
   categories = useStoryblok(categories, enableBridge)
   navigationData = useStoryblok(navigationData, enableBridge)
   footerData = useStoryblok(footerData, enableBridge)
+  useEffect(() => {
+    setRecipeList(firstPageRecipeList) // When the dynamic route change reset the state
+  }, [dynamicRoute])
   async function displayNewPageItem(activePage) {
     let param = {starts_with: 'recipe/', is_startpage: 0, per_page: 1, page: activePage}
     if (categoryUuid) {

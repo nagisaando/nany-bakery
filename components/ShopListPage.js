@@ -4,6 +4,7 @@ import Storyblok, {useStoryblok} from '../utils/storyblok'
 import ProductCard from './ProductCard'
 import Pagination from './Pagination'
 import Categories from './Categories'
+import {useRouter} from 'next/router'
 
 export default function ShopListPage({
   story,
@@ -27,7 +28,12 @@ export default function ShopListPage({
     }
     retrieveObjectData()
   }, [])
+
   const [shopList, setShopList] = useState(firstPageShopList)
+  const dynamicRoute = useRouter().asPath
+  useEffect(() => {
+    setShopList(firstPageShopList) // When the dynamic route change reset the state
+  }, [dynamicRoute])
   story = useStoryblok(story, enableBridge)
   navigationData = useStoryblok(navigationData, enableBridge)
   footerData = useStoryblok(footerData, enableBridge)

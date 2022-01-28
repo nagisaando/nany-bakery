@@ -22,7 +22,8 @@ export function useStoryblok(originalStory, preview) {
         resolveRelations: [
           'FeaturedProducts.items',
           'FeaturedRecipes.items',
-          'Post.related_recipe',
+          'Post.categories',
+          'Product.categories',
         ],
       })
 
@@ -43,7 +44,8 @@ export function useStoryblok(originalStory, preview) {
           resolve_relations: [
             'FeaturedProducts.items',
             'FeaturedRecipes.items',
-            'Post.related_recipe',
+            'Post.categories',
+            'Product.categories',
           ],
         })
           .then(({data}) => {

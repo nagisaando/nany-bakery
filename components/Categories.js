@@ -17,12 +17,12 @@ const Categories = ({blok}) => {
           <li key={blok.uuid} className="my-2 | capitalize font-light">
             <Link
               href={`${router.pathname.includes('/shop') ? '/shop' : '/recipe'}/category/${
-                blok.content.name
+                blok.slug
               }`}
             >
               <a
                 data-value={`${router.pathname.includes('/shop') ? '/shop' : '/recipe'}/category/${
-                  blok.content.name
+                  blok.slug
                 }`}
                 onClick={reloadPage}
               >

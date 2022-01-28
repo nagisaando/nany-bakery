@@ -1,11 +1,11 @@
 import React from 'react'
 import {sbEditable} from '@storyblok/storyblok-editable'
 import {render} from 'storyblok-rich-text-react-renderer'
-
+import Link from 'next/link'
 import RecipeDetailCard from './RecipeDetailCard'
 import FeaturedRecipes from './FeaturedRecipes'
 
-const Post = ({blok}) => {
+const Post = ({blok, relatedRecipe}) => {
   const date = () => {
     if (blok.date) {
       let arr = blok.date.split('')
@@ -27,6 +27,24 @@ const Post = ({blok}) => {
     <div {...sbEditable(blok)} className="">
       <div>
         <h1 className="text-5xl font-medium capitalize">{blok.title}</h1>
+        {blok.categories && blok.categories.length > 0 ? (
+          <div className="text-sm font-light my-4">
+            Categories:{' '}
+            {blok.categories.map((category, i) => {
+              return (
+                <span key={category.uuid}>
+                  <Link href={`/recipe/category/${category.slug}`}>
+                    <a>{category.content.name}</a>
+                  </Link>
+                  {i !== blok.categories.length - 1 ? ', ' : ''}
+                </span>
+              )
+            })}
+          </div>
+        ) : (
+          ''
+        )}
+
         <p className="text-sm font-light my-5">{date()}</p>
         <div className="">
           <img className="object-cover object-center " src={`${blok.image}/m/`} alt={blok.title} />
@@ -43,10 +61,10 @@ const Post = ({blok}) => {
           ''
         )}
       </div>
-      {blok.related_recipe.length > 0 ? (
+      {relatedRecipe.length > 0 ? (
         <div>
           <h2 className="text-4xl | mt-32 -mb-10">You may also like</h2>
-          <FeaturedRecipes blok={blok.related_recipe} />
+          <FeaturedRecipes blok={relatedRecipe} />
         </div>
       ) : (
         ''

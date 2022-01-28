@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import Storyblok from '../../../utils/storyblok'
-import {getrecipeListPageData} from '../../../utils/recipeListPage'
+import {getRecipeListPageData} from '../../../utils/recipeListPage'
 import RecipeListPage from '../../../components/RecipeListPage'
 import {useRouter} from 'next/router'
 export default function Page({
@@ -31,7 +31,7 @@ export default function Page({
 export async function getStaticProps({params, preview = false}) {
   let {data} = await Storyblok.get(`cdn/stories/recipe-categories/${params.slug}`)
   let categoryUuid = data.story ? data.story.uuid : false
-  let recipeListData = await getrecipeListPageData(preview, categoryUuid)
+  let recipeListData = await getRecipeListPageData(preview, categoryUuid)
 
   return {
     props: {

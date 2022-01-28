@@ -33,6 +33,7 @@ export async function getStaticProps({params, preview = false}) {
   let {data} = await Storyblok.get(`cdn/stories/shop-categories/${params.slug}`)
   let categoryUuid = data.story ? data.story.uuid : false
   let shopListPageData = await getShopListPageData(preview, categoryUuid)
+
   return {
     props: {
       story: shopListPageData.story,
