@@ -13,6 +13,8 @@ const RecipeListPage = ({
   firstPageRecipeList,
   navigationData,
   footerData,
+  logo,
+  whatsapp,
   categoryTitle,
   totalPage,
   categoryUuid,
@@ -38,7 +40,12 @@ const RecipeListPage = ({
     setRecipeList(data ? data.stories : [])
   }
   return (
-    <Layout navigationBlok={navigationData.content} footerBlok={footerData.content}>
+    <Layout
+      navigationBlok={navigationData.content}
+      footerBlok={footerData.content}
+      logo={logo}
+      whatsapp={whatsapp}
+    >
       <div className="px-5 md:px-10 py-40  | container | mx-auto">
         <h1 className="text-5xl capitalize font-medium |  my-10">
           {categoryTitle ? categoryTitle : story.content.title}

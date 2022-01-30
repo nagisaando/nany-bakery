@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {getRecipeListPageData} from '../../utils/recipeListPage'
+import {getGlobalData} from '../../utils/globalData'
 import RecipeListPage from '../../components/RecipeListPage'
 
 export default function Page({
@@ -8,6 +9,8 @@ export default function Page({
   firstPageRecipeList,
   navigationData,
   footerData,
+  logo,
+  whatsapp,
   totalPage,
   preview,
 }) {
@@ -17,6 +20,8 @@ export default function Page({
       categories={categories}
       firstPageRecipeList={firstPageRecipeList}
       navigationData={navigationData}
+      logo={logo}
+      whatsapp={whatsapp}
       footerData={footerData}
       totalPage={totalPage}
     />
@@ -24,14 +29,17 @@ export default function Page({
 }
 export async function getStaticProps({preview = false}) {
   let recipeListData = await getRecipeListPageData(preview)
+  let globalData = await getGlobalData(preview)
   return {
     props: {
       story: recipeListData.story,
       categories: recipeListData.categories,
       firstPageRecipeList: recipeListData.recipeList,
-      navigationData: recipeListData.navigationData,
-      footerData: recipeListData.footerData,
       totalPage: recipeListData.totalPage,
+      navigationData: globalData.navigationData,
+      footerData: globalData.footerData,
+      logo: globalData.logo,
+      whatsapp: globalData.whatsapp,
       preview,
     },
   }

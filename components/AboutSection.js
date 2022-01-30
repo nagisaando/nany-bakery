@@ -1,5 +1,5 @@
 import {sbEditable} from '@storyblok/storyblok-editable'
-import ButtonLinkNormal from './ButtonLinkNormal'
+import ButtonExternalLink from './ButtonExternalLink'
 const AboutSection = ({blok}) => (
   <section {...sbEditable(blok)} className="bg-darkPink | mt-20">
     <div className="px-5 md:px-10 py-20 | container mx-auto | sm:flex">
@@ -12,7 +12,9 @@ const AboutSection = ({blok}) => (
       <div className="mt-10 sm:mt-0 | flex flex-col justify-center | text-white">
         <h2 className="text-3xl md:text-4xl">{blok.title}</h2>
         <p className="text-base font-light mt-10 mb-10">{blok.text}</p>
-        <ButtonLinkNormal blok={blok.body[0]} />
+        <div className="py-5">
+          <ButtonExternalLink blok={blok.body[0]} />
+        </div>
       </div>
     </div>
   </section>

@@ -2,6 +2,7 @@ import Layout from '../../components/Layout'
 import Post from '../../components/Post'
 import React, {useEffect} from 'react'
 import Storyblok, {useStoryblok} from '../../utils/storyblok'
+import {getGlobalData} from '../../utils/globalData'
 import ProfileForRecipePage from '../../components/ProfileForRecipePage'
 import BreadCrumb from '../../components/BreadCrumb'
 
@@ -11,6 +12,8 @@ export default function Page({
   profileData,
   navigationData,
   footerData,
+  logo,
+  whatsapp,
   relatedRecipe,
   preview,
 }) {
@@ -21,7 +24,12 @@ export default function Page({
   footerData = useStoryblok(footerData, enableBridge)
 
   return (
-    <Layout navigationBlok={navigationData.content} footerBlok={footerData.content}>
+    <Layout
+      navigationBlok={navigationData.content}
+      footerBlok={footerData.content}
+      logo={logo}
+      whatsapp={whatsapp}
+    >
       <div className="my-44 | px-5 md:px-10 | container mx-auto">
         <BreadCrumb />
         <div className="lg:flex gap-10">
@@ -58,8 +66,7 @@ export async function getStaticProps({params, preview = false}) {
     resolve_relations: ['Post.categories'],
   })
   let profile = await Storyblok.get(`cdn/stories/profile-for-recipe-article`, sbParams)
-  let navigationData = await Storyblok.get(`cdn/stories/navigation`, sbParams)
-  let footerData = await Storyblok.get(`cdn/stories/footer`, sbParams)
+  let globalData = await getGlobalData(preview)
   let relatedRecipe = []
   if (data && data.story.content.categories && data.story.content.categories.length > 0) {
     relatedRecipe = await Storyblok.get(`cdn/stories/`, {
@@ -81,9 +88,11 @@ export async function getStaticProps({params, preview = false}) {
     props: {
       story: data ? data.story : false,
       profileData: profile.data ? profile.data.story : false,
-      navigationData: navigationData.data ? navigationData.data.story : false,
-      footerData: footerData.data ? footerData.data.story : false,
       relatedRecipe: relatedRecipe.length > 0 ? relatedRecipe : [],
+      navigationData: globalData.navigationData,
+      footerData: globalData.footerData,
+      logo: globalData.logo,
+      whatsapp: globalData.whatsapp,
       preview,
     },
     revalidate: 3600, // revalidate every hour

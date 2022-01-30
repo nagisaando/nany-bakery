@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React, {useState} from 'react'
 import {CSSTransition} from 'react-transition-group'
 import {useRouter} from 'next/router'
-const Navigation = ({blok}) => {
+const Navigation = ({blok, logo, whatsapp}) => {
   const [menuOpen, setMenu] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
   const nodeRef = React.useRef(null)
@@ -26,7 +26,7 @@ const Navigation = ({blok}) => {
 
       // if(linkName )
     }
-    return blok.body[0].link_list.map((el, i) => (
+    return blok.link_list.map((el, i) => (
       <li key={i}>
         <Link href={`/${el.link.cached_url}`} as={`/${el.link.cached_url}`}>
           <a
@@ -61,7 +61,9 @@ const Navigation = ({blok}) => {
   return (
     <header className="w-full absolute top-0 left-0">
       <nav role="navigation">
-        <div className={`container | mx-auto | px-5 py-7 md:py-10 md:px-10 | relative z-20`}>
+        <div
+          className={`container | mx-auto | px-5 py-7 md:py-10 md:px-10 | flex justify-between items-center | relative z-20`}
+        >
           <button
             className={`flex md:hidden menu-btn | ${menuOpen ? 'open' : ''}`}
             onClick={buttonHandler}
@@ -70,11 +72,23 @@ const Navigation = ({blok}) => {
           </button>
 
           <ul className="hidden md:flex gap-x-4 | ">{links()}</ul>
-          <img
-            src={`${blok.body[1].image}/m/fit-in/70x70/`}
-            alt={blok.body[1].alt_name}
-            className="absolute | left-1/2 top-1/2 transform -translate-x-1/2  -translate-y-1/2"
-          />
+          <Link href="/">
+            <a>
+              <img
+                src={`${logo}/m/fit-in/70x70/`}
+                alt="logo"
+                className="absolute | left-1/2 top-1/2 transform -translate-x-1/2  -translate-y-1/2"
+              />
+            </a>
+          </Link>
+          <a
+            href={whatsapp.link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block md:inline | my-5 md:my-0 | text-lg font-light | capitalize"
+          >
+            contact
+          </a>
         </div>
         {/* mobole menu*/}
         <CSSTransition

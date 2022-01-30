@@ -3,8 +3,9 @@ import Layout from '../components/Layout'
 import DynamicComponent from '../components/DynamicComponent'
 import React, {useEffect} from 'react'
 import Storyblok, {useStoryblok} from '../utils/storyblok'
+import {getGlobalData} from '../utils/globalData'
 
-export default function Page({story, navigationData, footerData, preview}) {
+export default function Page({story, navigationData, footerData, logo, whatsapp, preview}) {
   const enableBridge = true // load the storyblok bridge everywhere
   // use the preview variable to enable the bridge only in preview mode
   // const enableBridge = preview;
@@ -13,7 +14,12 @@ export default function Page({story, navigationData, footerData, preview}) {
   footerData = useStoryblok(footerData, enableBridge)
 
   return (
-    <Layout navigationBlok={navigationData.content} footerBlok={footerData.content}>
+    <Layout
+      navigationBlok={navigationData.content}
+      footerBlok={footerData.content}
+      logo={logo}
+      whatsapp={whatsapp}
+    >
       <DynamicComponent blok={story.content} />
       <style jsx global>{`
         body {
@@ -42,16 +48,16 @@ export async function getStaticProps({preview = false}) {
   }
 
   let {data} = await Storyblok.get(`cdn/stories/home`, sbParams)
-  let navigationData = await Storyblok.get(`cdn/stories/navigation`, sbParams)
-  let footerData = await Storyblok.get(`cdn/stories/footer`, sbParams)
+  let globalData = await getGlobalData(preview)
 
   return {
     props: {
       story: data ? data.story : false,
-      navigationData: navigationData.data ? navigationData.data.story : false,
-      footerData: footerData.data ? footerData.data.story : false,
+      navigationData: globalData.navigationData,
+      footerData: globalData.footerData,
+      logo: globalData.logo,
+      whatsapp: globalData.whatsapp,
       preview,
     },
-    revalidate: 3600, // revalidate every hour
   }
 }

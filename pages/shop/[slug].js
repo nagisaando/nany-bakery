@@ -2,8 +2,17 @@ import Layout from '../../components/Layout'
 import Product from '../../components/Product'
 import React, {useEffect} from 'react'
 import Storyblok, {useStoryblok} from '../../utils/storyblok'
+import {getGlobalData} from '../../utils/globalData'
 import {useRouter} from 'next/router'
-export default function Page({story, navigationData, footerData, relatedProduct, preview}) {
+export default function Page({
+  story,
+  navigationData,
+  footerData,
+  logo,
+  whatsapp,
+  relatedProduct,
+  preview,
+}) {
   const enableBridge = true // load the storyblok bridge everywhere
   const router = useRouter()
   const {slug} = router.query
@@ -23,7 +32,12 @@ export default function Page({story, navigationData, footerData, relatedProduct,
   footerData = useStoryblok(footerData, enableBridge)
 
   return (
-    <Layout navigationBlok={navigationData.content} footerBlok={footerData.content}>
+    <Layout
+      navigationBlok={navigationData.content}
+      footerBlok={footerData.content}
+      logo={logo}
+      whatsapp={whatsapp}
+    >
       <Product blok={story.content} relatedProduct={relatedProduct} />
       <style jsx global>{`
         body {
@@ -53,8 +67,7 @@ export async function getStaticProps({params, preview = false}) {
   let {data} = await Storyblok.get(`cdn/stories/shop/${params.slug}`, {
     resolve_relations: ['Product.categories'],
   })
-  let navigationData = await Storyblok.get(`cdn/stories/navigation`, sbParams)
-  let footerData = await Storyblok.get(`cdn/stories/footer`, sbParams)
+  let globalData = await getGlobalData(preview)
   let relatedProduct = []
   if (data && data.story.content.categories && data.story.content.categories.length > 0) {
     relatedProduct = await Storyblok.get(`cdn/stories/`, {
@@ -76,10 +89,12 @@ export async function getStaticProps({params, preview = false}) {
   return {
     props: {
       story: data ? data.story : false,
-      navigationData: navigationData.data ? navigationData.data.story : false,
-      footerData: footerData.data ? footerData.data.story : false,
       preview,
       relatedProduct: relatedProduct.length > 0 ? relatedProduct : [],
+      navigationData: globalData.navigationData,
+      footerData: globalData.footerData,
+      logo: globalData.logo,
+      whatsapp: globalData.whatsapp,
     },
   }
 }
