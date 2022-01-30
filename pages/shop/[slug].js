@@ -38,7 +38,7 @@ export default function Page({
       logo={logo}
       whatsapp={whatsapp}
     >
-      <Product blok={story.content} relatedProduct={relatedProduct} />
+      <Product blok={story.content} relatedProduct={relatedProduct} whatsapp={whatsapp} />
       <style jsx global>{`
         body {
           font-family: 'Poppins', sans-serif;

@@ -1,12 +1,11 @@
 import React from 'react'
 import {sbEditable} from '@storyblok/storyblok-editable'
 import {render} from 'storyblok-rich-text-react-renderer'
-import LongButtonLink from './LongButtonLink'
 import BreadCrumb from './BreadCrumb'
 import Link from 'next/link'
 import FeaturedProducts from './FeaturedProducts'
 
-const Post = ({blok, relatedProduct}) => {
+const Product = ({blok, relatedProduct, whatsapp}) => {
   return (
     <div {...sbEditable(blok)} className="my-44 | px-5 md:px-10 | container mx-auto">
       <BreadCrumb />
@@ -41,7 +40,18 @@ const Post = ({blok, relatedProduct}) => {
             <p className="my-6 | font-medium text-lg md:text-xl">${blok.price}</p>
 
             <div className="mb-10 content prose max-w-none">{render(blok.description)}</div>
-            <LongButtonLink />
+            <a
+              className="px-8 py-5 | block capitalize | transition-opacity duration-200 ease-in hover:opacity-80 | text-center"
+              style={{
+                background: '#d38081',
+                color: '#fff',
+              }}
+              href={`${whatsapp.link.url}?text=Product%20name:%20${blok.name}%0aMessage:%20`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              check availability
+            </a>
           </div>
         </div>
         {relatedProduct.length > 0 ? (
@@ -67,4 +77,4 @@ const Post = ({blok, relatedProduct}) => {
   )
 }
 
-export default Post
+export default Product

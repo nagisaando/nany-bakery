@@ -20,7 +20,7 @@ export default function Page({story, navigationData, footerData, logo, whatsapp,
       logo={logo}
       whatsapp={whatsapp}
     >
-      <DynamicComponent blok={story.content} />
+      <DynamicComponent blok={story.content} whatsapp={whatsapp} />
       <style jsx global>{`
         body {
           font-family: 'Poppins', sans-serif;

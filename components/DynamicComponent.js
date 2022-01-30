@@ -23,12 +23,12 @@ const Components = {
   Product,
 }
 
-const DynamicComponent = ({blok}) => {
+const DynamicComponent = ({blok, whatsapp}) => {
   if (typeof Components[blok.component] !== 'undefined') {
     const Component = Components[blok.component]
     return (
       <div>
-        <Component blok={blok} />
+        <Component blok={blok} whatsapp={whatsapp} />
       </div>
     )
   }
