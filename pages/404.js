@@ -3,13 +3,14 @@ import Layout from '../components/Layout'
 import DynamicComponent from '../components/DynamicComponent'
 import {getGlobalData} from '../utils/globalData'
 import Storyblok, {useStoryblok} from '../utils/storyblok'
+import NotFoundPage from '../components/NotFoundPage'
 
 export default function Page404({preview, navigationData, footerData, logo, whatsapp}) {
   const enableBridge = true // load the storyblok bridge everywhere
   // const enableBridge = preview; // load only inside preview mode
   const storyLoaded = useStoryblok(null, enableBridge)
 
-  let content = <h1 className="text-9xl text-darkPink">404</h1>
+  let content = <NotFoundPage />
 
   if (storyLoaded && storyLoaded.content) content = <DynamicComponent blok={storyLoaded.content} />
 

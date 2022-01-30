@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React, {useState} from 'react'
 import {CSSTransition} from 'react-transition-group'
 import {useRouter} from 'next/router'
+import Image from 'next/image'
 const Navigation = ({blok, logo, whatsapp}) => {
   const [menuOpen, setMenu] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
@@ -73,11 +74,13 @@ const Navigation = ({blok, logo, whatsapp}) => {
 
           <ul className="hidden md:flex gap-x-4 | ">{links()}</ul>
           <Link href="/">
-            <a>
-              <img
-                src={`${logo}/m/fit-in/70x70/`}
+            <a className="absolute | left-1/2 top-1/2 transform -translate-x-1/2  -translate-y-1/2">
+              <Image
+                src={`http:${logo}/m/fit-in/70x70/`}
                 alt="logo"
-                className="absolute | left-1/2 top-1/2 transform -translate-x-1/2  -translate-y-1/2"
+                width="70"
+                height="70"
+                objectFit="contain"
               />
             </a>
           </Link>
