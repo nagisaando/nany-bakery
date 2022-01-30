@@ -46,7 +46,7 @@ const Product = ({blok, relatedProduct, whatsapp}) => {
                 background: '#d38081',
                 color: '#fff',
               }}
-              href={`${whatsapp.link.url}?text=Product%20name:%20${blok.name}%0aMessage:%20`}
+              href={`${whatsapp.link.url}?text=Hi%20there,%20Is%20${blok.name}%20$still%20available?%0a%0ahttps://hester-demo.squarespace.com/fdsa`}
               target="_blank"
               rel="noreferrer"
             >
