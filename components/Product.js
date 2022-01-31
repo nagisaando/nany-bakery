@@ -11,21 +11,18 @@ const Product = ({blok, relatedProduct, whatsapp}) => {
     <div {...sbEditable(blok)} className="my-44 | px-5 md:px-10 | container mx-auto">
       <BreadCrumb />
       <div>
-        <div className="sm:flex">
-          <div className={`basis-1/2 | relative ${styles.imageContainer}`}>
-            <div>
-              <Image
-                src={`${blok.images[0].filename}/m/`}
-                alt={blok.name}
-                layout="fill"
-                className={styles.image}
-                priority={true}
-              />
-            </div>
-            {/* <img
-              className="content object-cover object-center | mx-auto | h-full sm:h-auto"
+        <div className="sm:flex gap-8">
+          <div className={`basis-1/2 | relative`}>
+            <Image
               src={`${blok.images[0].filename}/m/`}
-            /> */}
+              alt={blok.name}
+              width="100vw"
+              height="100%"
+              layout="responsive"
+              objectFit="contain"
+              priority={true}
+              key={blok.name}
+            />
           </div>
 
           <div className="basis-1/2 | mt-16 sm:mt-0">

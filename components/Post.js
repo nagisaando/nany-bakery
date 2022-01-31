@@ -46,15 +46,18 @@ const Post = ({blok, relatedRecipe}) => {
         )}
 
         <p className="text-sm font-light my-5">{date()}</p>
-        <div className="img-container w-full h-120 | relative">
+        <div className="img-container | relative">
           <Image
             className="image"
             src={`http:${blok.image}/m/`}
             alt={blok.title}
-            layout="fill"
+            width="100vw"
+            height="100%"
+            layout="responsive"
             objectFit="contain"
             objectPosition="left top"
             priority={true}
+            key={blok.title}
           />
         </div>
         <div className="mt-20 prose max-w-none">{render(blok.long_text)}</div>
