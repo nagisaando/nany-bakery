@@ -4,7 +4,7 @@ import {render} from 'storyblok-rich-text-react-renderer'
 import Link from 'next/link'
 import RecipeDetailCard from './RecipeDetailCard'
 import FeaturedRecipes from './FeaturedRecipes'
-
+import Image from 'next/image'
 const Post = ({blok, relatedRecipe}) => {
   const date = () => {
     if (blok.date) {
@@ -46,8 +46,15 @@ const Post = ({blok, relatedRecipe}) => {
         )}
 
         <p className="text-sm font-light my-5">{date()}</p>
-        <div className="">
+        <div className="relative w-full h-full">
           <img className="object-cover object-center " src={`${blok.image}/m/`} alt={blok.title} />
+          {/* <Image
+            className="object-cover object-center "
+            src={`http:${blok.image}/m/`}
+            alt={blok.title}
+            layout="fill"
+            objectFit="contain"
+          /> */}
         </div>
         <div className="mt-20 prose max-w-none">{render(blok.long_text)}</div>
         {blok.recipe_description.length > 0 ? (

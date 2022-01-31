@@ -4,7 +4,6 @@ import {useRouter} from 'next/router'
 import Storyblok, {useStoryblok} from '../utils/storyblok'
 import RecipeCard from './RecipeCard'
 import Pagination from './Pagination'
-
 import Categories from './Categories'
 
 const RecipeListPage = ({
@@ -26,19 +25,6 @@ const RecipeListPage = ({
   categories = useStoryblok(categories, enableBridge)
   navigationData = useStoryblok(navigationData, enableBridge)
   footerData = useStoryblok(footerData, enableBridge)
-  useEffect(() => {
-    setRecipeList(firstPageRecipeList) // When the dynamic route change reset the state
-  }, [dynamicRoute])
-  async function displayNewPageItem(activePage) {
-    let param = {starts_with: 'recipe/', is_startpage: 0, per_page: 1, page: activePage}
-    if (categoryUuid) {
-      param['filter_query[categories][exists]'] = categoryUuid
-    }
-
-    let {data} = await Storyblok.get(`cdn/stories`, param)
-    console.log(data.stories)
-    setRecipeList(data ? data.stories : [])
-  }
   return (
     <Layout
       navigationBlok={navigationData.content}

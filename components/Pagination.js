@@ -32,7 +32,6 @@ const Pagination = ({totalPage, listReset, displayNewPageItem}) => {
   }, [])
   function changePage(e) {
     let btnValue = e.currentTarget.getAttribute('data-value')
-    console.log('btn value ', btnValue)
     if (btnValue === 'next' && totalPage > activePage) {
       setActivePage(+activePage + 1)
     } else if (btnValue === 'previous' && activePage > 0) {

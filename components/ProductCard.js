@@ -1,14 +1,16 @@
 import Link from 'next/link'
+import Image from 'next/image'
 const ProductCard = ({blok}) => (
   <Link href={`/${blok.full_slug}`}>
     <a className="text-center">
-      <div className="square">
-        <img
-          className="content object-cover object-center"
+      <div className="square | relative">
+        <Image
           src={`${
             blok.content.card_image ? blok.content.card_image : blok.content.images[0].filename
-          }/m/`}
+          }/m/fit-in/600x600`}
           alt={blok.content.name}
+          layout="fill"
+          objectFit="cover"
         />
       </div>
       <h3 className="font-medium text-xl lg:text-2xl capitalize | mt-10 | pt-100%">

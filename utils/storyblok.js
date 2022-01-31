@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react'
 import StoryblokClient from 'storyblok-js-client'
-
+const token = `${process.env.NEXT_PUBLIC_PUBLIC_API_TOKEN}`
 const Storyblok = new StoryblokClient({
-  accessToken: 'dVD4rKjDjqrrPMcJ4FHQsgtt',
+  accessToken: token,
   cache: {
     clear: 'auto',
     type: 'memory',

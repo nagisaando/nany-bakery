@@ -12,7 +12,6 @@ export default function Page({story, navigationData, footerData, logo, whatsapp,
   story = useStoryblok(story, enableBridge)
   navigationData = useStoryblok(navigationData, enableBridge)
   footerData = useStoryblok(footerData, enableBridge)
-
   return (
     <Layout
       navigationBlok={navigationData.content}
@@ -38,7 +37,7 @@ export default function Page({story, navigationData, footerData, logo, whatsapp,
 
 export async function getStaticProps({preview = false}) {
   let sbParams = {
-    version: 'draft', // or "published"
+    version: 'published',
     resolve_relations: ['FeaturedProducts.items', 'FeaturedRecipes.items'],
   }
 

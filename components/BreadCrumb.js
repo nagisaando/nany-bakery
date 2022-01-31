@@ -8,14 +8,8 @@ const BreadCrumb = ({blok}) => {
   const router = useRouter()
   const [path, setPath] = useState(getPath())
   const {slug} = router.query
-
-  //   useEffect(() => {
-  //     console.log(router.asPath)
-  //     console.log(slug)
-  //   }, [])
   function getPath() {
     let path = router.asPath.replace('/', '').split('-').join(' ')
-    console.log(path)
     if (path[path.length - 1] === '/') {
       path = path.slice(0, -1)
     }

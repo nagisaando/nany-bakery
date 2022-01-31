@@ -54,7 +54,7 @@ export default function Page({
 
 export async function getStaticProps({params, preview = false}) {
   let sbParams = {
-    version: 'draft', // or "published"
+    version: 'published',
   }
 
   if (preview) {
@@ -112,8 +112,6 @@ export async function getStaticPaths({}) {
 
     paths.push({params: {slug: data.links[linkKey].slug.replace('recipe/', '')}})
   })
-
-  console.log(paths)
 
   return {
     paths: paths,

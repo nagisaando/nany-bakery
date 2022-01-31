@@ -2,7 +2,7 @@ import Storyblok, {useStoryblok} from './storyblok'
 
 export async function getRecipeListPageData(preview, categoryUuid) {
   let sbParams = {
-    version: 'draft', // or "published"
+    version: 'published',
   }
 
   if (preview) {

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 const RecipeCard = ({blok}) => {
   const date = () => {
     if (blok.content.date) {
@@ -21,10 +22,13 @@ const RecipeCard = ({blok}) => {
     <Link href={`/${blok.full_slug}`}>
       <a className="text-left">
         <div className="square">
-          <img
-            className="content object-cover object-center"
-            src={`${blok.content.card_image ? blok.content.card_image : blok.content.image}/m/`}
+          <Image
+            src={`http://${
+              blok.content.card_image ? blok.content.card_image : blok.content.image
+            }/m/fit-in/600x600`}
             alt={blok.content.title}
+            layout="fill"
+            objectFit="cover"
           />
         </div>
         <p className="mt-10 | pt-100% | font-light text-sm">{blok.content.date ? date() : ''}</p>

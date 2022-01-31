@@ -2,7 +2,7 @@ import Storyblok from './storyblok'
 
 export async function getGlobalData(preview) {
   let sbParams = {
-    version: 'draft', // or "published"
+    version: 'published',
   }
 
   if (preview) {

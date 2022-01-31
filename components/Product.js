@@ -4,7 +4,7 @@ import {render} from 'storyblok-rich-text-react-renderer'
 import BreadCrumb from './BreadCrumb'
 import Link from 'next/link'
 import FeaturedProducts from './FeaturedProducts'
-
+import Image from 'next/image'
 const Product = ({blok, relatedProduct, whatsapp}) => {
   return (
     <div {...sbEditable(blok)} className="my-44 | px-5 md:px-10 | container mx-auto">

@@ -1,11 +1,18 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faYoutube, faInstagram, faWhatsapp} from '@fortawesome/free-brands-svg-icons'
+import Image from 'next/image'
 const Footer = ({blok, logo, whatsapp}) => {
   return (
     <footer className="py-6 lg:py-10 bg-pink">
       <div className="container md:flex justify-between | mx-auto | px-5 md:px-10">
-        <div>
-          <img src={`${logo}/m/fit-in/70x70/`} alt="logo" className="" />
+        <div className="relative">
+          <Image
+            src={`http:${logo}/m/fit-in/70x70/`}
+            alt="logo"
+            width="70"
+            height="70"
+            objectFit="contain"
+          />
         </div>
         <ul className="mt-8 md:mt-0 | flex gap-x-5">
           <li className="">

@@ -5,7 +5,6 @@ import ProductCard from './ProductCard'
 import Pagination from './Pagination'
 import Categories from './Categories'
 import {useRouter} from 'next/router'
-
 export default function ShopListPage({
   story,
   categories,
@@ -19,18 +18,6 @@ export default function ShopListPage({
   categoryUuid,
 }) {
   const enableBridge = true // load the storyblok bridge everywhere
-  useEffect(() => {
-    async function retrieveObjectData() {
-      let sbParams = {
-        version: 'draft', // or "published"
-      }
-
-      const response = await Storyblok.get(`cdn/stories`, {starts_with: 'shop/', is_startpage: 0})
-      console.log(response)
-    }
-    retrieveObjectData()
-  }, [])
-
   const [shopList, setShopList] = useState(firstPageShopList)
   const dynamicRoute = useRouter().asPath
   useEffect(() => {
@@ -46,7 +33,6 @@ export default function ShopListPage({
     }
 
     let {data} = await Storyblok.get(`cdn/stories`, param)
-    console.log(data.stories)
     setShopList(data ? data.stories : [])
   }
   return (

@@ -16,17 +16,17 @@ export default function Page({
   const enableBridge = true // load the storyblok bridge everywhere
   const router = useRouter()
   const {slug} = router.query
-  useEffect(() => {
-    async function retrieveObjectData() {
-      let sbParams = {
-        version: 'draft', // or "published"
-      }
+  // useEffect(() => {
+  //   async function retrieveObjectData() {
+  //     let sbParams = {
+  //       version: 'published',
+  //     }
 
-      const response = await Storyblok.get(`cdn/stories/shop/${slug}`)
-      console.log(response)
-    }
-    retrieveObjectData()
-  }, [])
+  //     const response = await Storyblok.get(`cdn/stories/shop/${slug}`)
+  //     console.log(response)
+  //   }
+  //   retrieveObjectData()
+  // }, [])
   story = useStoryblok(story, enableBridge)
   navigationData = useStoryblok(navigationData, enableBridge)
   footerData = useStoryblok(footerData, enableBridge)
@@ -56,7 +56,7 @@ export default function Page({
 
 export async function getStaticProps({params, preview = false}) {
   let sbParams = {
-    version: 'draft', // or "published"
+    version: 'published',
   }
 
   if (preview) {
