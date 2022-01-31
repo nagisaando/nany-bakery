@@ -4,7 +4,7 @@ import {useRouter} from 'next/router'
 import Storyblok, {useStoryblok} from '../utils/storyblok'
 import RecipeCard from './RecipeCard'
 import Pagination from './Pagination'
-
+import Loader from './Loader'
 import Categories from './Categories'
 
 const RecipeListPage = ({
@@ -21,6 +21,7 @@ const RecipeListPage = ({
 }) => {
   const enableBridge = true // load the storyblok bridge everywhere
   const [recipeList, setRecipeList] = useState(firstPageRecipeList)
+  const [loadingStatus, setLoadingStatus] = useState(false)
   const dynamicRoute = useRouter().asPath
   story = useStoryblok(story, enableBridge)
   categories = useStoryblok(categories, enableBridge)
@@ -30,14 +31,15 @@ const RecipeListPage = ({
     setRecipeList(firstPageRecipeList) // When the dynamic route change reset the state
   }, [dynamicRoute])
   async function displayNewPageItem(activePage) {
+    setLoadingStatus(true)
     let param = {starts_with: 'recipe/', is_startpage: 0, per_page: 10, page: activePage}
     if (categoryUuid) {
       param['filter_query[categories][exists]'] = categoryUuid
     }
-
     let {data} = await Storyblok.get(`cdn/stories`, param)
     console.log(data.stories)
     setRecipeList(data ? data.stories : [])
+    setLoadingStatus(false)
   }
   return (
     <Layout
@@ -52,7 +54,15 @@ const RecipeListPage = ({
         </h1>
         <div className="mb-14 | lg:flex gap-10">
           <div className="flex-grow">
-            {recipeList.length > 0 ? (
+            {loadingStatus ? (
+              <div className="text-center">
+                <Loader />
+              </div>
+            ) : (
+              ''
+            )}
+
+            {recipeList.length > 0 && !loadingStatus ? (
               <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-16 ">
                 {recipeList.map((blok, i) => {
                   return (
@@ -65,7 +75,6 @@ const RecipeListPage = ({
             ) : (
               ''
             )}
-
             <Pagination
               totalPage={totalPage}
               listReset={false}

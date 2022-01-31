@@ -1,4 +1,4 @@
-.imageContainer {
+/* .imageContainer {
   width: 100%;
   height: 50vh;
   position: relative;
@@ -10,25 +10,31 @@
   position: relative !important;
   object-fit: contain;
   object-position: center;
-}
+} */
 
 @media only screen and (min-width: 640px) {
   .imageContainer span {
     padding-right: 2rem !important;
+    /* width: 100%;
+    height: 100%; */
   }
-  .imageContainer .image {
+  /* .imageContainer .image {
     object-position: top left;
   }
   .imageContainer {
     width: 100%;
-
-    max-height: 100vh;
+    max-height: 100%;
     position: relative;
   }
+  .imageContainer div {
+    width: 100%;
+    height: 100%;
+    position: relative !important;
+  } */
 }
 
 @media only screen and (min-width: 1024px) {
-  .imageContainer span {
+  /* .imageContainer span {
     padding-right: 3.5rem !important;
-  }
+  } */
 }

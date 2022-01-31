@@ -30,6 +30,7 @@ const RecipeCard = ({blok}) => {
             layout="fill"
             objectFit="cover"
             priority={true}
+            key={blok.content.title}
           />
         </div>
         <p className="mt-10 | pt-100% | font-light text-sm">{blok.content.date ? date() : ''}</p>
