@@ -23,7 +23,7 @@ const RecipeCard = ({blok}) => {
       <a className="text-left">
         <div className="square">
           <Image
-            src={`http://${
+            src={`http:${
               blok.content.card_image ? blok.content.card_image : blok.content.image
             }/m/fit-in/600x600`}
             alt={blok.content.title}
