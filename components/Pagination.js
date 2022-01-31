@@ -25,6 +25,8 @@ const Pagination = ({totalPage, listReset, displayNewPageItem}) => {
   useEffect(() => {
     if (!isFirstRender.current) {
       displayNewPageItem(activePage)
+      document.body.scrollTop = 0 // For Safari
+      document.documentElement.scrollTop = 0
     }
   }, [activePage])
   useEffect(() => {
@@ -39,10 +41,6 @@ const Pagination = ({totalPage, listReset, displayNewPageItem}) => {
     } else {
       setActivePage(+btnValue)
     }
-    document.body.scrollTop = 0 // For Safari
-    document.documentElement.scrollTop = 0
-    // displayNewPageItem(activePage)
-    //
   }
   return (
     <div className="flex justify-center | md:w-7/12 | mx-auto mt-28">
