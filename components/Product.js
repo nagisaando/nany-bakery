@@ -19,6 +19,7 @@ const Product = ({blok, relatedProduct, whatsapp}) => {
                 alt={blok.name}
                 layout="fill"
                 className={styles.image}
+                priority={true}
               />
             </div>
             {/* <img
