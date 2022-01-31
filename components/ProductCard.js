@@ -11,6 +11,7 @@ const ProductCard = ({blok}) => (
           alt={blok.content.name}
           layout="fill"
           objectFit="cover"
+          priority={true}
         />
       </div>
       <h3 className="font-medium text-xl lg:text-2xl capitalize | mt-10 | pt-100%">

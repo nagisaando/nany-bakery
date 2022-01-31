@@ -54,6 +54,7 @@ const Post = ({blok, relatedRecipe}) => {
             layout="fill"
             objectFit="contain"
             objectPosition="left top"
+            priority={true}
           />
         </div>
         <div className="mt-20 prose max-w-none">{render(blok.long_text)}</div>

@@ -14,6 +14,7 @@ const Hero = ({blok}) => (
           objectFit="cover"
           layout="fill"
           alt="hero"
+          priority={true}
         />
       </div>
     </div>
