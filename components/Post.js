@@ -24,7 +24,7 @@ const Post = ({blok, relatedRecipe}) => {
     }
   }
   return (
-    <div {...sbEditable(blok)} className="">
+    <div {...sbEditable(blok)} className="flex-grow">
       <div>
         <h1 className="text-5xl font-medium capitalize">{blok.title}</h1>
         {blok.categories && blok.categories.length > 0 ? (
@@ -46,15 +46,15 @@ const Post = ({blok, relatedRecipe}) => {
         )}
 
         <p className="text-sm font-light my-5">{date()}</p>
-        <div className="relative w-full h-full">
-          <img className="object-cover object-center " src={`${blok.image}/m/`} alt={blok.title} />
-          {/* <Image
-            className="object-cover object-center "
+        <div className="img-container w-full h-120 | relative">
+          <Image
+            className="image"
             src={`http:${blok.image}/m/`}
             alt={blok.title}
             layout="fill"
             objectFit="contain"
-          /> */}
+            objectPosition="left top"
+          />
         </div>
         <div className="mt-20 prose max-w-none">{render(blok.long_text)}</div>
         {blok.recipe_description.length > 0 ? (
@@ -76,6 +76,14 @@ const Post = ({blok, relatedRecipe}) => {
       ) : (
         ''
       )}
+      <style jsx>{`
+        .image {
+          object-fit: contain;
+          width: 100% !important;
+          position: relative !important;
+          height: unset !important;
+        }
+      `}</style>
     </div>
   )
 }

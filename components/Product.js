@@ -5,17 +5,26 @@ import BreadCrumb from './BreadCrumb'
 import Link from 'next/link'
 import FeaturedProducts from './FeaturedProducts'
 import Image from 'next/image'
+import styles from './Product.module.css'
 const Product = ({blok, relatedProduct, whatsapp}) => {
   return (
     <div {...sbEditable(blok)} className="my-44 | px-5 md:px-10 | container mx-auto">
       <BreadCrumb />
       <div>
         <div className="sm:flex">
-          <div className="basis-1/2 sm:pr-8 lg:pr-14">
-            <img
+          <div className={`basis-1/2 | relative ${styles.imageContainer}`}>
+            <div>
+              <Image
+                src={`${blok.images[0].filename}/m/`}
+                alt={blok.name}
+                layout="fill"
+                className={styles.image}
+              />
+            </div>
+            {/* <img
               className="content object-cover object-center | mx-auto | h-full sm:h-auto"
               src={`${blok.images[0].filename}/m/`}
-            />
+            /> */}
           </div>
 
           <div className="basis-1/2 | mt-16 sm:mt-0">

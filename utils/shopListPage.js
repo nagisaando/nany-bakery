@@ -10,7 +10,7 @@ export async function getShopListPageData(preview, uuid) {
     sbParams.cv = Date.now()
   }
 
-  let shopListParam = {starts_with: 'shop/', is_startpage: 0, per_page: 1, page: 1}
+  let shopListParam = {starts_with: 'shop/', is_startpage: 0, per_page: 10, page: 1}
   if (uuid) {
     shopListParam['filter_query[categories][exists]'] = uuid
   }
@@ -23,7 +23,7 @@ export async function getShopListPageData(preview, uuid) {
     story: data ? data.story : false,
     categories: categories.data ? categories.data : false,
     shopList: shopList.data ? shopList.data.stories : false,
-    totalPage: shopList.headers.total,
+    totalPage: Math.ceil(shopList.headers.total / 10),
     preview,
   }
 }
