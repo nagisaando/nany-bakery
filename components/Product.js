@@ -6,7 +6,10 @@ import Link from 'next/link'
 import FeaturedProducts from './FeaturedProducts'
 import Image from 'next/image'
 import styles from './Product.module.css'
+import {useRouter} from 'next/router'
 const Product = ({blok, relatedProduct, whatsapp}) => {
+  const router = useRouter()
+  const {slug} = router.query
   return (
     <div {...sbEditable(blok)} className="my-44 | px-5 md:px-10 | container mx-auto">
       <BreadCrumb />
@@ -20,6 +23,7 @@ const Product = ({blok, relatedProduct, whatsapp}) => {
               height="100%"
               layout="responsive"
               objectFit="contain"
+              objectPosition="top"
               priority={true}
               key={blok.name}
             />
@@ -53,7 +57,7 @@ const Product = ({blok, relatedProduct, whatsapp}) => {
                 background: '#d38081',
                 color: '#fff',
               }}
-              href={`${whatsapp.link.url}?text=Hi%20there,%20Is%20${blok.name}%20$still%20available?%0a%0ahttps://hester-demo.squarespace.com/fdsa`}
+              href={`${whatsapp.link.url}?text=Hi%20there,%20Is%20${blok.name}%20still%20available?%0a%0ahttps://nanybakery.com/shop/${slug}`}
               target="_blank"
               rel="noreferrer"
             >
