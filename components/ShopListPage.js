@@ -27,7 +27,7 @@ export default function ShopListPage({
   navigationData = useStoryblok(navigationData, enableBridge)
   footerData = useStoryblok(footerData, enableBridge)
   async function displayNewPageItem(activePage) {
-    let param = {starts_with: 'shop/', is_startpage: 0, per_page: 1, page: activePage}
+    let param = {starts_with: 'shop/', is_startpage: 0, per_page: 10, page: activePage}
     if (categoryUuid) {
       param['filter_query[categories][exists]'] = categoryUuid
     }

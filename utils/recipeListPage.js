@@ -9,7 +9,7 @@ export async function getRecipeListPageData(preview, categoryUuid) {
     sbParams.version = 'draft'
     sbParams.cv = Date.now()
   }
-  let recipeListParam = {starts_with: 'recipe/', is_startpage: 0, per_page: 1, page: 1}
+  let recipeListParam = {starts_with: 'recipe/', is_startpage: 0, per_page: 10, page: 1}
   if (categoryUuid) {
     recipeListParam['filter_query[categories][exists]'] = categoryUuid
   }
@@ -21,6 +21,6 @@ export async function getRecipeListPageData(preview, categoryUuid) {
     story: data ? data.story : false,
     categories: categories.data ? categories.data : false,
     recipeList: recipeList.data ? recipeList.data.stories : false,
-    totalPage: recipeList.headers.total,
+    totalPage: Math.ceil(recipeList.headers.total / 10),
   }
 }

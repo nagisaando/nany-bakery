@@ -30,7 +30,7 @@ const RecipeListPage = ({
     setRecipeList(firstPageRecipeList) // When the dynamic route change reset the state
   }, [dynamicRoute])
   async function displayNewPageItem(activePage) {
-    let param = {starts_with: 'recipe/', is_startpage: 0, per_page: 1, page: activePage}
+    let param = {starts_with: 'recipe/', is_startpage: 0, per_page: 10, page: activePage}
     if (categoryUuid) {
       param['filter_query[categories][exists]'] = categoryUuid
     }

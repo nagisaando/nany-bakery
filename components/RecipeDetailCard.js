@@ -1,17 +1,13 @@
 import React from 'react'
 import {sbEditable} from '@storyblok/storyblok-editable'
 import {render} from 'storyblok-rich-text-react-renderer'
-
+import Image from 'next/image'
 const RecipeDetailCard = ({blok, title, intro, image}) => {
   return (
     <div {...sbEditable(blok)} className="bg-lightPink p-10">
       <div className="sm:flex flex-row-reverse">
-        <div>
-          <img
-            className="object-cover object-center block mx-auto sm:mx-0"
-            src={`${image}/m/200x250`}
-            alt={title}
-          />
+        <div className="relative h-64 w-52">
+          <Image src={`http:${image}/m/200x250`} alt={title} layout="fill" objectFit="cover" />
         </div>
         <div className="flex-grow | sm:pr-6 | mt-5 sm:mt-0">
           <h2 className="text-4xl capitalize">{title}</h2>
