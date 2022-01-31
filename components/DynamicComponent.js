@@ -1,5 +1,4 @@
 // import Feature from "./Feature";
-import Grid from './Grid'
 import Placeholder from './Placeholder'
 import Product from './Product'
 import Post from './Post'
@@ -12,7 +11,6 @@ import ImageSection from './ImageSection'
 import AboutSection from './AboutSection'
 const Components = {
   Page,
-  Grid,
   Hero,
   HomeSection,
   FeaturedRecipes,
