@@ -1,0 +1,34 @@
+.imageContainer {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+}
+
+.imageContainer .image {
+  width: 100%;
+  height: 100%;
+  position: relative !important;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media only screen and (min-width: 640px) {
+  .imageContainer span {
+    padding-right: 2rem !important;
+  }
+  .imageContainer .image {
+    object-position: top left;
+  }
+  .imageContainer {
+    width: 100%;
+
+    max-height: 100vh;
+    position: relative;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .imageContainer span {
+    padding-right: 3.5rem !important;
+  }
+}
